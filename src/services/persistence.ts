@@ -1,4 +1,5 @@
 import { load } from "@tauri-apps/plugin-store";
+import { createDefaultPersistedState } from "../domain/defaults";
 import type { PersistedState } from "../domain/types";
 import { hydratePersistedState, type HydratedStateResult } from "../domain/schemas";
 import { isTauriRuntime } from "./environment";
@@ -10,10 +11,15 @@ export async function loadPersistedState(): Promise<HydratedStateResult> {
   try {
     if (isTauriRuntime()) {
       const store = await load("pickboard-state.json", { autoSave: 150 });
-      return hydratePersistedState(await store.get<unknown>(STORE_KEY));
+      const raw = await store.get<unknown>(STORE_KEY);
+      return raw === undefined
+        ? { state: createDefaultPersistedState(), recovered: false }
+        : hydratePersistedState(raw);
     }
     const serialized = localStorage.getItem(LOCAL_STORAGE_KEY);
-    return hydratePersistedState(serialized ? (JSON.parse(serialized) as unknown) : undefined);
+    return serialized
+      ? hydratePersistedState(JSON.parse(serialized) as unknown)
+      : { state: createDefaultPersistedState(), recovered: false };
   } catch {
     return hydratePersistedState(undefined);
   }
@@ -37,4 +43,3 @@ export async function savePersistedState(state: PersistedState): Promise<void> {
   }
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
 }
-
