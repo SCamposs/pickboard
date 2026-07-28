@@ -1,0 +1,1422 @@
+{
+  "version": "16.14.1",
+  "generatedAt": "2026-07-28T17:26:53.531Z",
+  "champions": [
+    {
+      "id": "Aatrox",
+      "key": "266",
+      "name": "Aatrox",
+      "image": "Aatrox.png",
+      "search": "aatrox",
+      "aliases": []
+    },
+    {
+      "id": "Ahri",
+      "key": "103",
+      "name": "Ahri",
+      "image": "Ahri.png",
+      "search": "ahri",
+      "aliases": []
+    },
+    {
+      "id": "Akali",
+      "key": "84",
+      "name": "Akali",
+      "image": "Akali.png",
+      "search": "akali",
+      "aliases": []
+    },
+    {
+      "id": "Akshan",
+      "key": "166",
+      "name": "Akshan",
+      "image": "Akshan.png",
+      "search": "akshan",
+      "aliases": []
+    },
+    {
+      "id": "Alistar",
+      "key": "12",
+      "name": "Alistar",
+      "image": "Alistar.png",
+      "search": "alistar",
+      "aliases": []
+    },
+    {
+      "id": "Ambessa",
+      "key": "799",
+      "name": "Ambessa",
+      "image": "Ambessa.png",
+      "search": "ambessa",
+      "aliases": []
+    },
+    {
+      "id": "Amumu",
+      "key": "32",
+      "name": "Amumu",
+      "image": "Amumu.png",
+      "search": "amumu",
+      "aliases": []
+    },
+    {
+      "id": "Anivia",
+      "key": "34",
+      "name": "Anivia",
+      "image": "Anivia.png",
+      "search": "anivia",
+      "aliases": []
+    },
+    {
+      "id": "Annie",
+      "key": "1",
+      "name": "Annie",
+      "image": "Annie.png",
+      "search": "annie",
+      "aliases": []
+    },
+    {
+      "id": "Aphelios",
+      "key": "523",
+      "name": "Aphelios",
+      "image": "Aphelios.png",
+      "search": "aphelios",
+      "aliases": []
+    },
+    {
+      "id": "Ashe",
+      "key": "22",
+      "name": "Ashe",
+      "image": "Ashe.png",
+      "search": "ashe",
+      "aliases": []
+    },
+    {
+      "id": "AurelionSol",
+      "key": "136",
+      "name": "Aurelion Sol",
+      "image": "AurelionSol.png",
+      "search": "aurelionsol",
+      "aliases": [
+        "asol"
+      ]
+    },
+    {
+      "id": "Aurora",
+      "key": "893",
+      "name": "Aurora",
+      "image": "Aurora.png",
+      "search": "aurora",
+      "aliases": []
+    },
+    {
+      "id": "Azir",
+      "key": "268",
+      "name": "Azir",
+      "image": "Azir.png",
+      "search": "azir",
+      "aliases": []
+    },
+    {
+      "id": "Bard",
+      "key": "432",
+      "name": "Bardo",
+      "image": "Bard.png",
+      "search": "bardo",
+      "aliases": []
+    },
+    {
+      "id": "Belveth",
+      "key": "200",
+      "name": "Bel'Veth",
+      "image": "Belveth.png",
+      "search": "belveth",
+      "aliases": []
+    },
+    {
+      "id": "Blitzcrank",
+      "key": "53",
+      "name": "Blitzcrank",
+      "image": "Blitzcrank.png",
+      "search": "blitzcrank",
+      "aliases": []
+    },
+    {
+      "id": "Brand",
+      "key": "63",
+      "name": "Brand",
+      "image": "Brand.png",
+      "search": "brand",
+      "aliases": []
+    },
+    {
+      "id": "Braum",
+      "key": "201",
+      "name": "Braum",
+      "image": "Braum.png",
+      "search": "braum",
+      "aliases": []
+    },
+    {
+      "id": "Briar",
+      "key": "233",
+      "name": "Briar",
+      "image": "Briar.png",
+      "search": "briar",
+      "aliases": []
+    },
+    {
+      "id": "Caitlyn",
+      "key": "51",
+      "name": "Caitlyn",
+      "image": "Caitlyn.png",
+      "search": "caitlyn",
+      "aliases": []
+    },
+    {
+      "id": "Camille",
+      "key": "164",
+      "name": "Camille",
+      "image": "Camille.png",
+      "search": "camille",
+      "aliases": []
+    },
+    {
+      "id": "Cassiopeia",
+      "key": "69",
+      "name": "Cassiopeia",
+      "image": "Cassiopeia.png",
+      "search": "cassiopeia",
+      "aliases": []
+    },
+    {
+      "id": "Chogath",
+      "key": "31",
+      "name": "Cho'Gath",
+      "image": "Chogath.png",
+      "search": "chogath",
+      "aliases": []
+    },
+    {
+      "id": "Corki",
+      "key": "42",
+      "name": "Corki",
+      "image": "Corki.png",
+      "search": "corki",
+      "aliases": []
+    },
+    {
+      "id": "Darius",
+      "key": "122",
+      "name": "Darius",
+      "image": "Darius.png",
+      "search": "darius",
+      "aliases": []
+    },
+    {
+      "id": "Diana",
+      "key": "131",
+      "name": "Diana",
+      "image": "Diana.png",
+      "search": "diana",
+      "aliases": []
+    },
+    {
+      "id": "DrMundo",
+      "key": "36",
+      "name": "Dr. Mundo",
+      "image": "DrMundo.png",
+      "search": "drmundo",
+      "aliases": [
+        "mundo"
+      ]
+    },
+    {
+      "id": "Draven",
+      "key": "119",
+      "name": "Draven",
+      "image": "Draven.png",
+      "search": "draven",
+      "aliases": []
+    },
+    {
+      "id": "Ekko",
+      "key": "245",
+      "name": "Ekko",
+      "image": "Ekko.png",
+      "search": "ekko",
+      "aliases": []
+    },
+    {
+      "id": "Elise",
+      "key": "60",
+      "name": "Elise",
+      "image": "Elise.png",
+      "search": "elise",
+      "aliases": []
+    },
+    {
+      "id": "Evelynn",
+      "key": "28",
+      "name": "Evelynn",
+      "image": "Evelynn.png",
+      "search": "evelynn",
+      "aliases": []
+    },
+    {
+      "id": "Ezreal",
+      "key": "81",
+      "name": "Ezreal",
+      "image": "Ezreal.png",
+      "search": "ezreal",
+      "aliases": []
+    },
+    {
+      "id": "Fiddlesticks",
+      "key": "9",
+      "name": "Fiddlesticks",
+      "image": "Fiddlesticks.png",
+      "search": "fiddlesticks",
+      "aliases": [
+        "fiddle"
+      ]
+    },
+    {
+      "id": "Fiora",
+      "key": "114",
+      "name": "Fiora",
+      "image": "Fiora.png",
+      "search": "fiora",
+      "aliases": []
+    },
+    {
+      "id": "Fizz",
+      "key": "105",
+      "name": "Fizz",
+      "image": "Fizz.png",
+      "search": "fizz",
+      "aliases": []
+    },
+    {
+      "id": "Galio",
+      "key": "3",
+      "name": "Galio",
+      "image": "Galio.png",
+      "search": "galio",
+      "aliases": []
+    },
+    {
+      "id": "Gangplank",
+      "key": "41",
+      "name": "Gangplank",
+      "image": "Gangplank.png",
+      "search": "gangplank",
+      "aliases": [
+        "gp"
+      ]
+    },
+    {
+      "id": "Garen",
+      "key": "86",
+      "name": "Garen",
+      "image": "Garen.png",
+      "search": "garen",
+      "aliases": []
+    },
+    {
+      "id": "Gnar",
+      "key": "150",
+      "name": "Gnar",
+      "image": "Gnar.png",
+      "search": "gnar",
+      "aliases": []
+    },
+    {
+      "id": "Gragas",
+      "key": "79",
+      "name": "Gragas",
+      "image": "Gragas.png",
+      "search": "gragas",
+      "aliases": []
+    },
+    {
+      "id": "Graves",
+      "key": "104",
+      "name": "Graves",
+      "image": "Graves.png",
+      "search": "graves",
+      "aliases": []
+    },
+    {
+      "id": "Gwen",
+      "key": "887",
+      "name": "Gwen",
+      "image": "Gwen.png",
+      "search": "gwen",
+      "aliases": []
+    },
+    {
+      "id": "Hecarim",
+      "key": "120",
+      "name": "Hecarim",
+      "image": "Hecarim.png",
+      "search": "hecarim",
+      "aliases": []
+    },
+    {
+      "id": "Heimerdinger",
+      "key": "74",
+      "name": "Heimerdinger",
+      "image": "Heimerdinger.png",
+      "search": "heimerdinger",
+      "aliases": []
+    },
+    {
+      "id": "Hwei",
+      "key": "910",
+      "name": "Hwei",
+      "image": "Hwei.png",
+      "search": "hwei",
+      "aliases": []
+    },
+    {
+      "id": "Illaoi",
+      "key": "420",
+      "name": "Illaoi",
+      "image": "Illaoi.png",
+      "search": "illaoi",
+      "aliases": []
+    },
+    {
+      "id": "Irelia",
+      "key": "39",
+      "name": "Irelia",
+      "image": "Irelia.png",
+      "search": "irelia",
+      "aliases": []
+    },
+    {
+      "id": "Ivern",
+      "key": "427",
+      "name": "Ivern",
+      "image": "Ivern.png",
+      "search": "ivern",
+      "aliases": []
+    },
+    {
+      "id": "Janna",
+      "key": "40",
+      "name": "Janna",
+      "image": "Janna.png",
+      "search": "janna",
+      "aliases": []
+    },
+    {
+      "id": "JarvanIV",
+      "key": "59",
+      "name": "Jarvan IV",
+      "image": "JarvanIV.png",
+      "search": "jarvaniv",
+      "aliases": [
+        "j4",
+        "jarvan"
+      ]
+    },
+    {
+      "id": "Jax",
+      "key": "24",
+      "name": "Jax",
+      "image": "Jax.png",
+      "search": "jax",
+      "aliases": []
+    },
+    {
+      "id": "Jayce",
+      "key": "126",
+      "name": "Jayce",
+      "image": "Jayce.png",
+      "search": "jayce",
+      "aliases": []
+    },
+    {
+      "id": "Jhin",
+      "key": "202",
+      "name": "Jhin",
+      "image": "Jhin.png",
+      "search": "jhin",
+      "aliases": []
+    },
+    {
+      "id": "Jinx",
+      "key": "222",
+      "name": "Jinx",
+      "image": "Jinx.png",
+      "search": "jinx",
+      "aliases": []
+    },
+    {
+      "id": "KSante",
+      "key": "897",
+      "name": "K'Sante",
+      "image": "KSante.png",
+      "search": "ksante",
+      "aliases": []
+    },
+    {
+      "id": "Kaisa",
+      "key": "145",
+      "name": "Kai'Sa",
+      "image": "Kaisa.png",
+      "search": "kaisa",
+      "aliases": [
+        "kaisa"
+      ]
+    },
+    {
+      "id": "Kalista",
+      "key": "429",
+      "name": "Kalista",
+      "image": "Kalista.png",
+      "search": "kalista",
+      "aliases": []
+    },
+    {
+      "id": "Karma",
+      "key": "43",
+      "name": "Karma",
+      "image": "Karma.png",
+      "search": "karma",
+      "aliases": []
+    },
+    {
+      "id": "Karthus",
+      "key": "30",
+      "name": "Karthus",
+      "image": "Karthus.png",
+      "search": "karthus",
+      "aliases": []
+    },
+    {
+      "id": "Kassadin",
+      "key": "38",
+      "name": "Kassadin",
+      "image": "Kassadin.png",
+      "search": "kassadin",
+      "aliases": []
+    },
+    {
+      "id": "Katarina",
+      "key": "55",
+      "name": "Katarina",
+      "image": "Katarina.png",
+      "search": "katarina",
+      "aliases": [
+        "kat",
+        "kata"
+      ]
+    },
+    {
+      "id": "Kayle",
+      "key": "10",
+      "name": "Kayle",
+      "image": "Kayle.png",
+      "search": "kayle",
+      "aliases": []
+    },
+    {
+      "id": "Kayn",
+      "key": "141",
+      "name": "Kayn",
+      "image": "Kayn.png",
+      "search": "kayn",
+      "aliases": []
+    },
+    {
+      "id": "Kennen",
+      "key": "85",
+      "name": "Kennen",
+      "image": "Kennen.png",
+      "search": "kennen",
+      "aliases": []
+    },
+    {
+      "id": "Khazix",
+      "key": "121",
+      "name": "Kha'Zix",
+      "image": "Khazix.png",
+      "search": "khazix",
+      "aliases": []
+    },
+    {
+      "id": "Kindred",
+      "key": "203",
+      "name": "Kindred",
+      "image": "Kindred.png",
+      "search": "kindred",
+      "aliases": []
+    },
+    {
+      "id": "Kled",
+      "key": "240",
+      "name": "Kled",
+      "image": "Kled.png",
+      "search": "kled",
+      "aliases": []
+    },
+    {
+      "id": "KogMaw",
+      "key": "96",
+      "name": "Kog'Maw",
+      "image": "KogMaw.png",
+      "search": "kogmaw",
+      "aliases": []
+    },
+    {
+      "id": "Leblanc",
+      "key": "7",
+      "name": "LeBlanc",
+      "image": "Leblanc.png",
+      "search": "leblanc",
+      "aliases": [
+        "lb"
+      ]
+    },
+    {
+      "id": "LeeSin",
+      "key": "64",
+      "name": "Lee Sin",
+      "image": "LeeSin.png",
+      "search": "leesin",
+      "aliases": []
+    },
+    {
+      "id": "Leona",
+      "key": "89",
+      "name": "Leona",
+      "image": "Leona.png",
+      "search": "leona",
+      "aliases": []
+    },
+    {
+      "id": "Lillia",
+      "key": "876",
+      "name": "Lillia",
+      "image": "Lillia.png",
+      "search": "lillia",
+      "aliases": []
+    },
+    {
+      "id": "Lissandra",
+      "key": "127",
+      "name": "Lissandra",
+      "image": "Lissandra.png",
+      "search": "lissandra",
+      "aliases": []
+    },
+    {
+      "id": "Locke",
+      "key": "805",
+      "name": "Locke",
+      "image": "Locke.png",
+      "search": "locke",
+      "aliases": []
+    },
+    {
+      "id": "Lucian",
+      "key": "236",
+      "name": "Lucian",
+      "image": "Lucian.png",
+      "search": "lucian",
+      "aliases": []
+    },
+    {
+      "id": "Lulu",
+      "key": "117",
+      "name": "Lulu",
+      "image": "Lulu.png",
+      "search": "lulu",
+      "aliases": []
+    },
+    {
+      "id": "Lux",
+      "key": "99",
+      "name": "Lux",
+      "image": "Lux.png",
+      "search": "lux",
+      "aliases": []
+    },
+    {
+      "id": "Malphite",
+      "key": "54",
+      "name": "Malphite",
+      "image": "Malphite.png",
+      "search": "malphite",
+      "aliases": []
+    },
+    {
+      "id": "Malzahar",
+      "key": "90",
+      "name": "Malzahar",
+      "image": "Malzahar.png",
+      "search": "malzahar",
+      "aliases": []
+    },
+    {
+      "id": "Maokai",
+      "key": "57",
+      "name": "Maokai",
+      "image": "Maokai.png",
+      "search": "maokai",
+      "aliases": []
+    },
+    {
+      "id": "MasterYi",
+      "key": "11",
+      "name": "Master Yi",
+      "image": "MasterYi.png",
+      "search": "masteryi",
+      "aliases": [
+        "yi"
+      ]
+    },
+    {
+      "id": "Mel",
+      "key": "800",
+      "name": "Mel",
+      "image": "Mel.png",
+      "search": "mel",
+      "aliases": []
+    },
+    {
+      "id": "Milio",
+      "key": "902",
+      "name": "Milio",
+      "image": "Milio.png",
+      "search": "milio",
+      "aliases": []
+    },
+    {
+      "id": "MissFortune",
+      "key": "21",
+      "name": "Miss Fortune",
+      "image": "MissFortune.png",
+      "search": "missfortune",
+      "aliases": [
+        "mf"
+      ]
+    },
+    {
+      "id": "Mordekaiser",
+      "key": "82",
+      "name": "Mordekaiser",
+      "image": "Mordekaiser.png",
+      "search": "mordekaiser",
+      "aliases": [
+        "morde"
+      ]
+    },
+    {
+      "id": "Morgana",
+      "key": "25",
+      "name": "Morgana",
+      "image": "Morgana.png",
+      "search": "morgana",
+      "aliases": []
+    },
+    {
+      "id": "Naafiri",
+      "key": "950",
+      "name": "Naafiri",
+      "image": "Naafiri.png",
+      "search": "naafiri",
+      "aliases": []
+    },
+    {
+      "id": "Nami",
+      "key": "267",
+      "name": "Nami",
+      "image": "Nami.png",
+      "search": "nami",
+      "aliases": []
+    },
+    {
+      "id": "Nasus",
+      "key": "75",
+      "name": "Nasus",
+      "image": "Nasus.png",
+      "search": "nasus",
+      "aliases": []
+    },
+    {
+      "id": "Nautilus",
+      "key": "111",
+      "name": "Nautilus",
+      "image": "Nautilus.png",
+      "search": "nautilus",
+      "aliases": []
+    },
+    {
+      "id": "Neeko",
+      "key": "518",
+      "name": "Neeko",
+      "image": "Neeko.png",
+      "search": "neeko",
+      "aliases": []
+    },
+    {
+      "id": "Nidalee",
+      "key": "76",
+      "name": "Nidalee",
+      "image": "Nidalee.png",
+      "search": "nidalee",
+      "aliases": []
+    },
+    {
+      "id": "Nilah",
+      "key": "895",
+      "name": "Nilah",
+      "image": "Nilah.png",
+      "search": "nilah",
+      "aliases": []
+    },
+    {
+      "id": "Nocturne",
+      "key": "56",
+      "name": "Nocturne",
+      "image": "Nocturne.png",
+      "search": "nocturne",
+      "aliases": [
+        "noc"
+      ]
+    },
+    {
+      "id": "Nunu",
+      "key": "20",
+      "name": "Nunu e Willump",
+      "image": "Nunu.png",
+      "search": "nunuewillump",
+      "aliases": []
+    },
+    {
+      "id": "Olaf",
+      "key": "2",
+      "name": "Olaf",
+      "image": "Olaf.png",
+      "search": "olaf",
+      "aliases": []
+    },
+    {
+      "id": "Orianna",
+      "key": "61",
+      "name": "Orianna",
+      "image": "Orianna.png",
+      "search": "orianna",
+      "aliases": []
+    },
+    {
+      "id": "Ornn",
+      "key": "516",
+      "name": "Ornn",
+      "image": "Ornn.png",
+      "search": "ornn",
+      "aliases": []
+    },
+    {
+      "id": "Pantheon",
+      "key": "80",
+      "name": "Pantheon",
+      "image": "Pantheon.png",
+      "search": "pantheon",
+      "aliases": []
+    },
+    {
+      "id": "Poppy",
+      "key": "78",
+      "name": "Poppy",
+      "image": "Poppy.png",
+      "search": "poppy",
+      "aliases": []
+    },
+    {
+      "id": "Pyke",
+      "key": "555",
+      "name": "Pyke",
+      "image": "Pyke.png",
+      "search": "pyke",
+      "aliases": []
+    },
+    {
+      "id": "Qiyana",
+      "key": "246",
+      "name": "Qiyana",
+      "image": "Qiyana.png",
+      "search": "qiyana",
+      "aliases": []
+    },
+    {
+      "id": "Quinn",
+      "key": "133",
+      "name": "Quinn",
+      "image": "Quinn.png",
+      "search": "quinn",
+      "aliases": []
+    },
+    {
+      "id": "Rakan",
+      "key": "497",
+      "name": "Rakan",
+      "image": "Rakan.png",
+      "search": "rakan",
+      "aliases": []
+    },
+    {
+      "id": "Rammus",
+      "key": "33",
+      "name": "Rammus",
+      "image": "Rammus.png",
+      "search": "rammus",
+      "aliases": []
+    },
+    {
+      "id": "RekSai",
+      "key": "421",
+      "name": "Rek'Sai",
+      "image": "RekSai.png",
+      "search": "reksai",
+      "aliases": []
+    },
+    {
+      "id": "Rell",
+      "key": "526",
+      "name": "Rell",
+      "image": "Rell.png",
+      "search": "rell",
+      "aliases": []
+    },
+    {
+      "id": "Renata",
+      "key": "888",
+      "name": "Renata Glasc",
+      "image": "Renata.png",
+      "search": "renataglasc",
+      "aliases": []
+    },
+    {
+      "id": "Renekton",
+      "key": "58",
+      "name": "Renekton",
+      "image": "Renekton.png",
+      "search": "renekton",
+      "aliases": []
+    },
+    {
+      "id": "Rengar",
+      "key": "107",
+      "name": "Rengar",
+      "image": "Rengar.png",
+      "search": "rengar",
+      "aliases": []
+    },
+    {
+      "id": "Riven",
+      "key": "92",
+      "name": "Riven",
+      "image": "Riven.png",
+      "search": "riven",
+      "aliases": []
+    },
+    {
+      "id": "Rumble",
+      "key": "68",
+      "name": "Rumble",
+      "image": "Rumble.png",
+      "search": "rumble",
+      "aliases": []
+    },
+    {
+      "id": "Ryze",
+      "key": "13",
+      "name": "Ryze",
+      "image": "Ryze.png",
+      "search": "ryze",
+      "aliases": []
+    },
+    {
+      "id": "Samira",
+      "key": "360",
+      "name": "Samira",
+      "image": "Samira.png",
+      "search": "samira",
+      "aliases": []
+    },
+    {
+      "id": "Sejuani",
+      "key": "113",
+      "name": "Sejuani",
+      "image": "Sejuani.png",
+      "search": "sejuani",
+      "aliases": []
+    },
+    {
+      "id": "Senna",
+      "key": "235",
+      "name": "Senna",
+      "image": "Senna.png",
+      "search": "senna",
+      "aliases": []
+    },
+    {
+      "id": "Seraphine",
+      "key": "147",
+      "name": "Seraphine",
+      "image": "Seraphine.png",
+      "search": "seraphine",
+      "aliases": []
+    },
+    {
+      "id": "Sett",
+      "key": "875",
+      "name": "Sett",
+      "image": "Sett.png",
+      "search": "sett",
+      "aliases": []
+    },
+    {
+      "id": "Shaco",
+      "key": "35",
+      "name": "Shaco",
+      "image": "Shaco.png",
+      "search": "shaco",
+      "aliases": []
+    },
+    {
+      "id": "Shen",
+      "key": "98",
+      "name": "Shen",
+      "image": "Shen.png",
+      "search": "shen",
+      "aliases": []
+    },
+    {
+      "id": "Shyvana",
+      "key": "102",
+      "name": "Shyvana",
+      "image": "Shyvana.png",
+      "search": "shyvana",
+      "aliases": []
+    },
+    {
+      "id": "Singed",
+      "key": "27",
+      "name": "Singed",
+      "image": "Singed.png",
+      "search": "singed",
+      "aliases": []
+    },
+    {
+      "id": "Sion",
+      "key": "14",
+      "name": "Sion",
+      "image": "Sion.png",
+      "search": "sion",
+      "aliases": []
+    },
+    {
+      "id": "Sivir",
+      "key": "15",
+      "name": "Sivir",
+      "image": "Sivir.png",
+      "search": "sivir",
+      "aliases": []
+    },
+    {
+      "id": "Skarner",
+      "key": "72",
+      "name": "Skarner",
+      "image": "Skarner.png",
+      "search": "skarner",
+      "aliases": []
+    },
+    {
+      "id": "Smolder",
+      "key": "901",
+      "name": "Smolder",
+      "image": "Smolder.png",
+      "search": "smolder",
+      "aliases": []
+    },
+    {
+      "id": "Sona",
+      "key": "37",
+      "name": "Sona",
+      "image": "Sona.png",
+      "search": "sona",
+      "aliases": []
+    },
+    {
+      "id": "Soraka",
+      "key": "16",
+      "name": "Soraka",
+      "image": "Soraka.png",
+      "search": "soraka",
+      "aliases": []
+    },
+    {
+      "id": "Swain",
+      "key": "50",
+      "name": "Swain",
+      "image": "Swain.png",
+      "search": "swain",
+      "aliases": []
+    },
+    {
+      "id": "Sylas",
+      "key": "517",
+      "name": "Sylas",
+      "image": "Sylas.png",
+      "search": "sylas",
+      "aliases": []
+    },
+    {
+      "id": "Syndra",
+      "key": "134",
+      "name": "Syndra",
+      "image": "Syndra.png",
+      "search": "syndra",
+      "aliases": []
+    },
+    {
+      "id": "TahmKench",
+      "key": "223",
+      "name": "Tahm Kench",
+      "image": "TahmKench.png",
+      "search": "tahmkench",
+      "aliases": [
+        "tk"
+      ]
+    },
+    {
+      "id": "Taliyah",
+      "key": "163",
+      "name": "Taliyah",
+      "image": "Taliyah.png",
+      "search": "taliyah",
+      "aliases": []
+    },
+    {
+      "id": "Talon",
+      "key": "91",
+      "name": "Talon",
+      "image": "Talon.png",
+      "search": "talon",
+      "aliases": []
+    },
+    {
+      "id": "Taric",
+      "key": "44",
+      "name": "Taric",
+      "image": "Taric.png",
+      "search": "taric",
+      "aliases": []
+    },
+    {
+      "id": "Teemo",
+      "key": "17",
+      "name": "Teemo",
+      "image": "Teemo.png",
+      "search": "teemo",
+      "aliases": []
+    },
+    {
+      "id": "Thresh",
+      "key": "412",
+      "name": "Thresh",
+      "image": "Thresh.png",
+      "search": "thresh",
+      "aliases": []
+    },
+    {
+      "id": "Tristana",
+      "key": "18",
+      "name": "Tristana",
+      "image": "Tristana.png",
+      "search": "tristana",
+      "aliases": []
+    },
+    {
+      "id": "Trundle",
+      "key": "48",
+      "name": "Trundle",
+      "image": "Trundle.png",
+      "search": "trundle",
+      "aliases": []
+    },
+    {
+      "id": "Tryndamere",
+      "key": "23",
+      "name": "Tryndamere",
+      "image": "Tryndamere.png",
+      "search": "tryndamere",
+      "aliases": []
+    },
+    {
+      "id": "TwistedFate",
+      "key": "4",
+      "name": "Twisted Fate",
+      "image": "TwistedFate.png",
+      "search": "twistedfate",
+      "aliases": []
+    },
+    {
+      "id": "Twitch",
+      "key": "29",
+      "name": "Twitch",
+      "image": "Twitch.png",
+      "search": "twitch",
+      "aliases": []
+    },
+    {
+      "id": "Udyr",
+      "key": "77",
+      "name": "Udyr",
+      "image": "Udyr.png",
+      "search": "udyr",
+      "aliases": []
+    },
+    {
+      "id": "Urgot",
+      "key": "6",
+      "name": "Urgot",
+      "image": "Urgot.png",
+      "search": "urgot",
+      "aliases": []
+    },
+    {
+      "id": "Varus",
+      "key": "110",
+      "name": "Varus",
+      "image": "Varus.png",
+      "search": "varus",
+      "aliases": []
+    },
+    {
+      "id": "Vayne",
+      "key": "67",
+      "name": "Vayne",
+      "image": "Vayne.png",
+      "search": "vayne",
+      "aliases": []
+    },
+    {
+      "id": "Veigar",
+      "key": "45",
+      "name": "Veigar",
+      "image": "Veigar.png",
+      "search": "veigar",
+      "aliases": []
+    },
+    {
+      "id": "Velkoz",
+      "key": "161",
+      "name": "Vel'Koz",
+      "image": "Velkoz.png",
+      "search": "velkoz",
+      "aliases": []
+    },
+    {
+      "id": "Vex",
+      "key": "711",
+      "name": "Vex",
+      "image": "Vex.png",
+      "search": "vex",
+      "aliases": []
+    },
+    {
+      "id": "Vi",
+      "key": "254",
+      "name": "Vi",
+      "image": "Vi.png",
+      "search": "vi",
+      "aliases": []
+    },
+    {
+      "id": "Viego",
+      "key": "234",
+      "name": "Viego",
+      "image": "Viego.png",
+      "search": "viego",
+      "aliases": []
+    },
+    {
+      "id": "Viktor",
+      "key": "112",
+      "name": "Viktor",
+      "image": "Viktor.png",
+      "search": "viktor",
+      "aliases": []
+    },
+    {
+      "id": "Vladimir",
+      "key": "8",
+      "name": "Vladimir",
+      "image": "Vladimir.png",
+      "search": "vladimir",
+      "aliases": []
+    },
+    {
+      "id": "Volibear",
+      "key": "106",
+      "name": "Volibear",
+      "image": "Volibear.png",
+      "search": "volibear",
+      "aliases": []
+    },
+    {
+      "id": "Warwick",
+      "key": "19",
+      "name": "Warwick",
+      "image": "Warwick.png",
+      "search": "warwick",
+      "aliases": [
+        "ww"
+      ]
+    },
+    {
+      "id": "MonkeyKing",
+      "key": "62",
+      "name": "Wukong",
+      "image": "MonkeyKing.png",
+      "search": "wukong",
+      "aliases": []
+    },
+    {
+      "id": "Xayah",
+      "key": "498",
+      "name": "Xayah",
+      "image": "Xayah.png",
+      "search": "xayah",
+      "aliases": []
+    },
+    {
+      "id": "Xerath",
+      "key": "101",
+      "name": "Xerath",
+      "image": "Xerath.png",
+      "search": "xerath",
+      "aliases": []
+    },
+    {
+      "id": "XinZhao",
+      "key": "5",
+      "name": "Xin Zhao",
+      "image": "XinZhao.png",
+      "search": "xinzhao",
+      "aliases": [
+        "xin"
+      ]
+    },
+    {
+      "id": "Yasuo",
+      "key": "157",
+      "name": "Yasuo",
+      "image": "Yasuo.png",
+      "search": "yasuo",
+      "aliases": []
+    },
+    {
+      "id": "Yone",
+      "key": "777",
+      "name": "Yone",
+      "image": "Yone.png",
+      "search": "yone",
+      "aliases": []
+    },
+    {
+      "id": "Yorick",
+      "key": "83",
+      "name": "Yorick",
+      "image": "Yorick.png",
+      "search": "yorick",
+      "aliases": []
+    },
+    {
+      "id": "Yunara",
+      "key": "804",
+      "name": "Yunara",
+      "image": "Yunara.png",
+      "search": "yunara",
+      "aliases": []
+    },
+    {
+      "id": "Yuumi",
+      "key": "350",
+      "name": "Yuumi",
+      "image": "Yuumi.png",
+      "search": "yuumi",
+      "aliases": []
+    },
+    {
+      "id": "Zaahen",
+      "key": "904",
+      "name": "Zaahen",
+      "image": "Zaahen.png",
+      "search": "zaahen",
+      "aliases": []
+    },
+    {
+      "id": "Zac",
+      "key": "154",
+      "name": "Zac",
+      "image": "Zac.png",
+      "search": "zac",
+      "aliases": []
+    },
+    {
+      "id": "Zed",
+      "key": "238",
+      "name": "Zed",
+      "image": "Zed.png",
+      "search": "zed",
+      "aliases": []
+    },
+    {
+      "id": "Zeri",
+      "key": "221",
+      "name": "Zeri",
+      "image": "Zeri.png",
+      "search": "zeri",
+      "aliases": []
+    },
+    {
+      "id": "Ziggs",
+      "key": "115",
+      "name": "Ziggs",
+      "image": "Ziggs.png",
+      "search": "ziggs",
+      "aliases": []
+    },
+    {
+      "id": "Zilean",
+      "key": "26",
+      "name": "Zilean",
+      "image": "Zilean.png",
+      "search": "zilean",
+      "aliases": []
+    },
+    {
+      "id": "Zoe",
+      "key": "142",
+      "name": "Zoe",
+      "image": "Zoe.png",
+      "search": "zoe",
+      "aliases": []
+    },
+    {
+      "id": "Zyra",
+      "key": "143",
+      "name": "Zyra",
+      "image": "Zyra.png",
+      "search": "zyra",
+      "aliases": []
+    }
+  ]
+}

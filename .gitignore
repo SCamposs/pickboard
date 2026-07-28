@@ -1,0 +1,12 @@
+node_modules/
+.pnpm-store/
+dist/
+coverage/
+target/
+src-tauri/target/
+dist/releases/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
