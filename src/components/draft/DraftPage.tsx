@@ -89,6 +89,32 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
     notify("Times invertidos.");
   };
 
+  const clearAllPicks = async (): Promise<void> => {
+    const hasPicks = Object.values(draft.picks).some((team) =>
+      Object.values(team).some(Boolean),
+    );
+    if (
+      hasPicks &&
+      !(await confirmAction("Limpar todos os picks dos dois times?", "Limpar picks"))
+    ) {
+      return;
+    }
+    clearPicks();
+    notify("Todos os picks foram limpos.");
+  };
+
+  const clearAllBans = async (): Promise<void> => {
+    const hasBans = Object.values(draft.bans).some((team) => team.some(Boolean));
+    if (
+      hasBans &&
+      !(await confirmAction("Limpar todos os bans dos dois times?", "Limpar bans"))
+    ) {
+      return;
+    }
+    clearBans();
+    notify("Todos os bans foram limpos.");
+  };
+
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.shiftKey && event.key.toLocaleLowerCase() === "c") {
@@ -181,20 +207,14 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
             <Button
               variant="ghost"
               icon={<Eraser size={15} />}
-              onClick={() => {
-                clearPicks();
-                notify("Todos os picks foram limpos.");
-              }}
+              onClick={() => void clearAllPicks()}
             >
               Limpar picks
             </Button>
             <Button
               variant="ghost"
               icon={<ShieldX size={15} />}
-              onClick={() => {
-                clearBans();
-                notify("Todos os bans foram limpos.");
-              }}
+              onClick={() => void clearAllBans()}
             >
               Limpar bans
             </Button>
