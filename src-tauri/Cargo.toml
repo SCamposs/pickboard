@@ -1,6 +1,6 @@
 [package]
 name = "pickboard"
-version = "0.1.0"
+version = "0.1.1"
 description = "Ferramenta desktop local para montagem de drafts"
 authors = ["Ítalo Soares Campos"]
 edition = "2021"

@@ -105,8 +105,8 @@ pnpm package:portable
 Artefatos reunidos em:
 
 ```text
-dist/releases/PickBoard_0.1.0_x64-setup.exe
-dist/releases/PickBoard_0.1.0_x64-portable.zip
+dist/releases/PickBoard_0.1.1_x64-setup.exe
+dist/releases/PickBoard_0.1.1_x64-portable.zip
 ```
 
 O ZIP portátil contém apenas `PickBoard.exe`. O WebView2 Runtime do Windows continua sendo um requisito do sistema. Esta primeira versão não possui assinatura digital; o Windows pode exibir um aviso do SmartScreen.
