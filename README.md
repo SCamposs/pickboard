@@ -16,7 +16,7 @@ O aplicativo foi criado diretamente na raiz deste repositório com Tauri 2, Reac
 - Modo compacto persistente.
 - Pools separadas por função e pelas categorias Principais, Bons, Situacionais e Evitar.
 - Reordenação e movimentação das pools por drag-and-drop, inclusive por teclado.
-- Cópia de uma pool, de todas as funções jogadas e do prompt inicial para novos chats.
+- Cópia de uma pool, de todas as funções jogadas e de um contexto completo para iniciar conversas com qualquer IA moderna.
 - Configuração inicial não bloqueante, preferências editáveis e restauração segura dos padrões.
 - Persistência local JSON com schema versionado, migração, validação e fallback para corrupção.
 - Snapshot pt_BR com 173 campeões e ícones embutidos para uso offline.

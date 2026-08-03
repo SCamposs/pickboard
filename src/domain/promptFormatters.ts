@@ -75,7 +75,7 @@ export function formatAllPools(
   ].join("\n");
 }
 
-export function formatInitialPrompt(input: {
+export function formatAssistantContext(input: {
   playedRoles: Role[];
   pools: Pools;
   preferences: string;
@@ -84,9 +84,9 @@ export function formatInitialPrompt(input: {
   const poolText = input.playedRoles
     .map((role) => formatRolePool(role, input.pools, input.champions, false))
     .join("\n\n");
-  return `Você será meu assistente rápido de draft de League of Legends.
+  return `Atue como meu assistente rápido de draft de League of Legends nesta conversa.
 
-Durante a seleção de campeões, eu enviarei drafts formatados com os campeões do meu time, do time inimigo, bans, minha função e outras funções para as quais desejo recomendações.
+Durante a seleção de campeões, enviarei drafts formatados pelo PickBoard com os campeões do meu time, do time inimigo, bans, minha função e outras funções para as quais desejo recomendações. Trate cada mensagem como um pedido de decisão imediata, mesmo quando o draft estiver incompleto.
 
 REGRAS DE RESPOSTA:
 
@@ -108,7 +108,9 @@ REGRAS DE RESPOSTA:
    - Principais ameaças.
 8. Recomende principalmente campeões presentes na minha pool.
 9. Um campeão na categoria “Evitar” só deve ser sugerido em circunstância excepcional e com justificativa clara.
-10. Não faça introduções longas durante o champ select.
+10. Nunca recomende um campeão que apareça nos bans do draft recebido.
+11. Use as informações mais atuais e confiáveis disponíveis para você. Se não souber o meta ou o patch atual, não invente dados; decida com base em matchup, composição e pool.
+12. Não faça introduções, ressalvas genéricas ou perguntas de confirmação durante o champ select.
 
 FUNÇÕES QUE EU JOGO:
 ${input.playedRoles.length ? input.playedRoles.join(", ") : "NENHUMA"}
@@ -121,5 +123,5 @@ PREFERÊNCIAS ADICIONAIS:
 
 ${input.preferences.trim() || "NENHUMA"}
 
-Quando eu enviar um prompt de draft gerado pelo PickBoard, responda seguindo estas regras.`;
+Este contexto vale para toda esta conversa. Quando eu enviar um draft gerado pelo PickBoard, responda diretamente seguindo estas regras.`;
 }

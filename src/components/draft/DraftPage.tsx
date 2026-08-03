@@ -167,8 +167,8 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
       {!setupCompleted && (
         <div className="setup-banner">
           <span>
-            <strong>Revise sua configuração inicial.</strong> O quadro já pode ser usado; o prompt
-            inicial será liberado após a confirmação.
+            <strong>Revise seu perfil de recomendação.</strong> O quadro já pode ser usado; o
+            contexto para novos chats será liberado após a confirmação.
           </span>
           <Button variant="ghost" icon={<Settings2 size={15} />} onClick={onOpenSettings}>
             Revisar agora

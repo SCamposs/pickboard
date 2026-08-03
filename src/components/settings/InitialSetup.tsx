@@ -1,5 +1,5 @@
 import { Check, Clipboard, Info } from "lucide-react";
-import { formatInitialPrompt } from "../../domain/promptFormatters";
+import { formatAssistantContext } from "../../domain/promptFormatters";
 import { ROLES } from "../../domain/types";
 import { copyText } from "../../services/clipboard";
 import { useAppStore } from "../../store/appStore";
@@ -24,17 +24,17 @@ export function InitialSetup() {
     );
   };
 
-  const copyInitialPrompt = async (): Promise<void> => {
+  const copyAssistantContext = async (): Promise<void> => {
     if (!setupCompleted) return;
     await copyText(
-      formatInitialPrompt({
+      formatAssistantContext({
         playedRoles,
         pools,
         preferences,
         champions,
       }),
     );
-    notify("Prompt inicial copiado para um novo chat.");
+    notify("Contexto para IA copiado. Cole em uma conversa nova.");
   };
 
   return (
@@ -42,7 +42,7 @@ export function InitialSetup() {
       <header className="settings-section-heading">
         <div>
           <h2 id="setup-title">Perfil de recomendação</h2>
-          <p>Define as pools incluídas no prompt inicial e suas preferências globais.</p>
+          <p>Define suas funções, pools e preferências no contexto enviado à IA.</p>
         </div>
         <span className="setup-status" data-complete={setupCompleted}>
           {setupCompleted ? <Check size={14} /> : <Info size={14} />}
@@ -92,21 +92,22 @@ export function InitialSetup() {
         >
           {setupCompleted ? "Confirmar novamente" : "Confirmar configuração"}
         </Button>
-        <div className="initial-prompt-action">
+        <div className="assistant-context-action">
           <Button
             variant="primary"
             icon={<Clipboard size={16} />}
             disabled={!setupCompleted}
-            onClick={() => void copyInitialPrompt()}
+            onClick={() => void copyAssistantContext()}
           >
-            Copiar prompt inicial
+            Copiar contexto para novo chat
           </Button>
-          {!setupCompleted && (
-            <span>Confirme a configuração para liberar o prompt de novos chats.</span>
-          )}
+          <span>
+            {setupCompleted
+              ? "Inclui suas funções, pools e preferências. Cole como primeira mensagem na IA de sua escolha."
+              : "Confirme a configuração para liberar o contexto completo para IA."}
+          </span>
         </div>
       </div>
     </section>
   );
 }
-

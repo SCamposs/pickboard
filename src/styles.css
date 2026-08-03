@@ -1256,14 +1256,14 @@ kbd {
   margin-top: 14px;
 }
 
-.initial-prompt-action {
+.assistant-context-action {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   gap: 4px;
 }
 
-.initial-prompt-action > span {
+.assistant-context-action > span {
   max-width: 320px;
   color: var(--color-muted);
   font-size: 10px;

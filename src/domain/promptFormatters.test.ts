@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { createEmptyDraft } from "./defaults";
 import {
   formatAllPools,
+  formatAssistantContext,
   formatDraftPrompt,
-  formatInitialPrompt,
   formatRolePool,
 } from "./promptFormatters";
 import { champions, defaultPools, populatedDraft } from "../test/fixtures";
@@ -82,8 +82,8 @@ describe("formatadores de pool", () => {
     expect(prompt).not.toContain("POOL DE JG");
   });
 
-  it("gera o prompt inicial a partir das configurações reais", () => {
-    const prompt = formatInitialPrompt({
+  it("gera o contexto para IA a partir das configurações reais", () => {
+    const prompt = formatAssistantContext({
       playedRoles: ["ADC", "JG"],
       pools: defaultPools(),
       preferences: "- Minha preferência personalizada.",
@@ -93,7 +93,8 @@ describe("formatadores de pool", () => {
     expect(prompt).toContain("ATUALIZAÇÃO DA MINHA POOL DE ADC");
     expect(prompt).toContain("ATUALIZAÇÃO DA MINHA POOL DE JG");
     expect(prompt).toContain("- Minha preferência personalizada.");
+    expect(prompt).toContain("Se não souber o meta ou o patch atual, não invente dados");
+    expect(prompt).toContain("Este contexto vale para toda esta conversa.");
     expect(prompt).not.toContain("MEU TIME:");
   });
 });
-
