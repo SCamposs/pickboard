@@ -190,4 +190,3 @@ pub async fn install_champion_update(
         .map_err(|error| format!("Não foi possível salvar a atualização: {error}"))?;
     Ok(catalog)
 }
-
