@@ -20,10 +20,9 @@ function run(script: "build:tauri" | "package:portable", env = process.env): voi
 }
 
 async function main(): Promise<void> {
-  const hasSigningKey = Boolean(
-    process.env.TAURI_SIGNING_PRIVATE_KEY || process.env.TAURI_SIGNING_PRIVATE_KEY_PATH,
-  );
-  if (!hasSigningKey) {
+  const configuredSigningKey =
+    process.env.TAURI_SIGNING_PRIVATE_KEY ?? process.env.TAURI_SIGNING_PRIVATE_KEY_PATH;
+  if (!configuredSigningKey) {
     await stat(localSigningKey).catch(() => {
       throw new Error(
         "Updater signing key not found. Set TAURI_SIGNING_PRIVATE_KEY or TAURI_SIGNING_PRIVATE_KEY_PATH.",
@@ -33,7 +32,7 @@ async function main(): Promise<void> {
 
   const env = {
     ...process.env,
-    ...(!hasSigningKey ? { TAURI_SIGNING_PRIVATE_KEY_PATH: localSigningKey } : {}),
+    TAURI_SIGNING_PRIVATE_KEY: configuredSigningKey ?? localSigningKey,
   };
 
   run("build:tauri", env);
