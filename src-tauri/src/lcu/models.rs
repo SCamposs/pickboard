@@ -111,6 +111,7 @@ pub struct ResolvedBans {
     pub enemy: Vec<String>,
 }
 
+#[cfg(any(debug_assertions, test))]
 pub fn sanitize_error(message: &str, secret: Option<&str>) -> String {
     let mut sanitized = message.to_string();
     if let Some(secret) = secret.filter(|value| !value.is_empty()) {

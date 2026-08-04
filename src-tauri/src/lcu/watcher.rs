@@ -12,10 +12,13 @@ use super::{
     champ_select::is_champ_select_event,
     connection::{LcuConnection, SessionResponse},
     discovery,
-    models::{sanitize_error, LcuStatus, SNAPSHOT_EVENT, STATUS_EVENT},
+    models::{LcuStatus, SNAPSHOT_EVENT, STATUS_EVENT},
     normalizer::normalize_session,
     LcuRuntime,
 };
+
+#[cfg(debug_assertions)]
+use super::models::sanitize_error;
 
 struct SessionTracker {
     boot_nonce: u128,
@@ -208,9 +211,9 @@ pub async fn run(app: AppHandle) {
 
         match monitor_connection(&app, &connection, &mut tracker, &mut sequence).await {
             Ok(()) => reconnect_delay = 1,
-            Err(error) => {
+            Err(_error) => {
                 #[cfg(debug_assertions)]
-                eprintln!("LCU: {}", sanitize_error(&error, None));
+                eprintln!("LCU: {}", sanitize_error(&_error, None));
                 emit_status(
                     &app,
                     "reconnecting",
