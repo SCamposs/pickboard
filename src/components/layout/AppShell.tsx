@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from "react";
 import { CircleHelp, Columns3, Settings2, ShieldEllipsis } from "lucide-react";
-import logoUrl from "../../assets/pickboard-mark.svg";
+
+const logoUrl = "/pickboard-mark.svg";
 
 export type AppPage = "draft" | "pools" | "settings" | "about";
 
