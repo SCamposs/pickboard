@@ -18,8 +18,9 @@ export function formatDraftPrompt(input: {
   const nameOf = createChampionNameResolver(input.champions);
   const formatTeam = (side: "ally" | "enemy", label: string): string => {
     const picks = ROLES.map((role) => `${role}: ${nameOf(input.draft.picks[side][role])}`);
+    const unassigned = input.draft.unassignedPicks[side].map((pick) => nameOf(pick.championId));
     const bans = input.draft.bans[side].filter((id): id is string => Boolean(id)).map(nameOf);
-    return `${label}:\n${picks.join("\n")}\nBANS: ${bans.length ? bans.join(", ") : "NENHUM"}`;
+    return `${label}:\n${picks.join("\n")}\nPICKS SEM POSIÇÃO DEFINIDA: ${unassigned.length ? unassigned.join(", ") : "NENHUM"}\nBANS: ${bans.length ? bans.join(", ") : "NENHUM"}`;
   };
 
   return [
@@ -31,7 +32,7 @@ export function formatDraftPrompt(input: {
     formatTeam("enemy", "TIME INIMIGO"),
     "",
     "INSTRUÇÃO:",
-    DRAFT_INSTRUCTION,
+    `${DRAFT_INSTRUCTION} Picks sem posição definida fazem parte da composição e a ordem deles não representa TOP, JG, MID, ADC ou SUP. Considere flexibilidade de função sem tratar suposições como certeza.`,
   ].join("\n");
 }
 

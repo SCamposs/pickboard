@@ -14,6 +14,18 @@ export function createEmptyDraft(): DraftState {
       ally: Array.from({ length: 5 }, () => null),
       enemy: Array.from({ length: 5 }, () => null),
     },
+    pickSources: Object.fromEntries(
+      TEAM_SIDES.map((side) => [
+        side,
+        Object.fromEntries(ROLES.map((role) => [role, null])),
+      ]),
+    ) as DraftState["pickSources"],
+    banSources: {
+      ally: Array.from({ length: 5 }, () => null),
+      enemy: Array.from({ length: 5 }, () => null),
+    },
+    unassignedPicks: { ally: [], enemy: [] },
+    syncSessionKey: null,
   };
 }
 
@@ -48,7 +60,7 @@ export function createDefaultPools(): Pools {
 
 export function createDefaultPersistedState(): PersistedState {
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     championDataVersion: championSnapshot.version,
     draft: createEmptyDraft(),
     pools: createDefaultPools(),
@@ -63,6 +75,7 @@ export function createDefaultPersistedState(): PersistedState {
       alwaysOnTop: false,
       compactMode: false,
       clearDraftOnStart: false,
+      syncWithLeagueClient: true,
     },
   };
 }

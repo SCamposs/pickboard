@@ -63,6 +63,30 @@ describe("formatDraftPrompt", () => {
     });
     expect(prompt).toContain("RECOMENDAR TAMBÉM: SUP, JG");
   });
+
+  it("inclui picks inimigos sem posição sem inferir uma função", () => {
+    const draft = createEmptyDraft();
+    draft.unassignedPicks.enemy.push({ championId: "Aurora", source: "lcu" });
+    const prompt = formatDraftPrompt({
+      draft,
+      primaryRole: "ADC",
+      additionalRoles: [],
+      champions,
+    });
+    expect(prompt).toContain("PICKS SEM POSIÇÃO DEFINIDA: Aurora");
+    expect(prompt).toContain("TOP: OPEN\nJG: OPEN\nMID: OPEN\nADC: OPEN\nSUP: OPEN");
+    expect(prompt).toContain("a ordem deles não representa TOP, JG, MID, ADC ou SUP");
+  });
+
+  it("usa NENHUM quando não há picks sem posição", () => {
+    const prompt = formatDraftPrompt({
+      draft: createEmptyDraft(),
+      primaryRole: "ADC",
+      additionalRoles: [],
+      champions,
+    });
+    expect(prompt.match(/PICKS SEM POSIÇÃO DEFINIDA: NENHUM/g)).toHaveLength(2);
+  });
 });
 
 describe("formatadores de pool", () => {
