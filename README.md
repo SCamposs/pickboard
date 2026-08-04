@@ -1,108 +1,108 @@
 # PickBoard
 
-PickBoard é um aplicativo desktop local para acompanhar drafts de League of Legends, organizar pools pessoais e copiar prompts prontos para qualquer IA moderna. A versão 0.2.0 pode ler picks e bans confirmados diretamente do League Client, sem retirar o preenchimento manual.
+PickBoard is a local desktop application for tracking League of Legends drafts, organizing personal champion pools, and copying structured prompts for modern AI assistants. Version 0.2.0 can read confirmed picks and bans directly from the League Client without removing any manual workflow.
 
-O aplicativo usa Tauri 2, React, TypeScript, Vite, Tailwind CSS e Rust. Não existe backend externo, conta, telemetria, analytics ou envio remoto de dados do draft.
+The application is built with Tauri 2, React, TypeScript, Vite, Tailwind CSS, and Rust. It has no external backend, account system, telemetry, analytics, or remote draft storage.
 
-## Recursos
+## Features
 
-- Picks para TOP, JG, MID, ADC e SUP nos dois times, preenchidos manualmente em qualquer ordem.
-- Sincronização local e opcional de picks e bans confirmados durante o champ select.
-- Posições aliadas preenchidas somente quando o League Client fornece uma função reconhecida.
-- Picks inimigos detectados sempre começam sem posição; o usuário pode atribuir, trocar ou remover seu palpite.
-- Cinco bans independentes por time, com validações contra picks e duplicações.
-- Prompt de draft completo, incluindo inimigos sem posição sem presumir uma ordem de funções.
-- Busca de campeões sem acento, espaço, hífen ou apóstrofo, com aliases comuns.
-- Nova partida, inversão de times, limpeza seletiva, sempre no topo e modo compacto.
-- Pools por função e categorias Principais, Bons, Situacionais e Evitar.
-- Contexto reutilizável para iniciar conversas com qualquer IA moderna.
-- Persistência local com schema versionado, migração e recuperação segura.
-- Snapshot pt_BR com 173 campeões e ícones embutidos para uso offline.
-- Atualização manual pelo Riot Data Dragon, sempre com fallback para o snapshot embutido.
+- Manual TOP, JG, MID, ADC, and SUP picks for both teams in any order.
+- Optional local synchronization of confirmed picks and bans during champion select.
+- Ally role placement only when the League Client provides a recognized position.
+- Enemy picks always start unassigned; users can assign, change, or remove a likely position.
+- Five independent ban slots per team with pick and duplicate validation.
+- Draft prompts that include unassigned enemy picks without inferring role order.
+- Accent-, space-, hyphen-, and apostrophe-insensitive champion search with common aliases.
+- New match, team inversion, selective clearing, always-on-top mode, and compact mode.
+- Champion pools by role and tier: Main, Good, Situational, and Avoid.
+- Reusable context for starting conversations with any modern AI assistant.
+- Local, versioned persistence with migration and safe corruption recovery.
+- Bundled pt_BR snapshot with 173 champions and icons for offline use.
+- Explicit Data Dragon updates with the bundled snapshot retained as an offline fallback.
 
-## Como funciona a sincronização
+## League Client Synchronization
 
-Ative ou desative **Sincronizar com o League Client** em **Configurações**. Ela vem ativada por padrão.
+Enable or disable **Sincronizar com o League Client** under **Configurações**. Synchronization is enabled by default.
 
-O backend Rust procura o processo `LeagueClientUx.exe`, obtém as credenciais temporárias locais pelos argumentos do processo ou pelo `lockfile` e se conecta exclusivamente ao loopback. A autenticação usa o usuário local `riot`; senha, porta, PID, linha de comando e conteúdo do lockfile nunca são enviados ao React, persistidos ou exibidos.
+The Rust backend detects `LeagueClientUx.exe`, discovers temporary local credentials from process arguments or the League Client `lockfile`, and connects exclusively through a loopback address. Authentication uses the local `riot` user. The password, port, PID, process command line, and lockfile contents are never sent to React, persisted, or displayed.
 
-Os eventos do cliente servem apenas como gatilho. Após conectar, reconectar ou receber um evento relevante, o PickBoard lê novamente o snapshot completo de `GET /lol-champ-select/v1/session`. Isso evita acumular eventos duplicados e faz trocas convergirem para o estado mais recente.
+Client events are used only as refresh triggers. After connecting, reconnecting, or receiving a relevant event, PickBoard reads a complete snapshot from `GET /lol-champ-select/v1/session`. Full-snapshot reconciliation prevents duplicate events from accumulating and ensures champion swaps converge to the latest confirmed state.
 
-A integração é estritamente somente leitura. Ela não:
+The integration is strictly read-only. It does not:
 
-- aceita partidas;
-- confirma pick ou ban;
-- altera runas ou feitiços;
-- envia mensagens;
-- identifica jogadores ocultos;
-- lê memória, injeta código ou executa ações no cliente.
+- accept matches;
+- confirm picks or bans;
+- modify runes or summoner spells;
+- send chat messages;
+- identify hidden players;
+- inspect process memory, inject code, or perform actions inside the client.
 
-Não é necessário criar, configurar ou distribuir uma Riot API key. A LCU usa somente uma credencial temporária criada pelo próprio League Client em cada execução.
+No Riot API key is required, configured, embedded, or distributed. The LCU connection uses only temporary credentials created by the local League Client for its current process.
 
-### Estados da conexão
+### Connection States
 
-- **Sincronização desativada:** o toggle está desligado e o quadro permanece manual.
-- **Procurando League Client:** o cliente ainda não foi encontrado.
-- **League Client encontrado / Conectando:** a conexão local está sendo preparada.
-- **Aguardando seleção:** o cliente está aberto, mas não há champ select ativo.
-- **Draft sincronizado:** o snapshot confirmado está sendo acompanhado.
-- **Reconectando:** houve uma interrupção transitória; o último draft continua visível.
-- **Integração indisponível:** o formato ou a conexão não pôde ser usado; o modo manual continua disponível.
+- **Sincronização desativada:** synchronization is disabled and the board remains manual.
+- **Procurando League Client:** the client has not been detected yet.
+- **League Client encontrado / Conectando:** the local connection is being prepared.
+- **Aguardando seleção:** the client is open without an active champion select.
+- **Draft sincronizado:** confirmed champion-select state is being synchronized.
+- **Reconectando:** a transient interruption occurred; the latest draft remains visible.
+- **Integração indisponível:** the connection or payload could not be used; manual mode remains available.
 
-### Picks inimigos sem posição
+### Unassigned Enemy Picks
 
-O PickBoard não usa ordem, cell ID, popularidade ou composição para adivinhar posições inimigas. Um adversário confirmado aparece em **Picks inimigos detectados** e já entra no prompt como parte da composição.
+PickBoard never uses player order, cell ID, champion popularity, or team composition to infer enemy positions. A confirmed enemy appears under **Picks inimigos detectados** and is immediately included in the generated prompt as part of the enemy composition.
 
-Para registrar seu palpite, escolha TOP, JG, MID, ADC ou SUP ao lado do campeão. Se a função estiver ocupada, o ocupante anterior volta para **Sem posição** e nenhuma informação é descartada. No slot, use a ação **Retornar para sem posição** para desfazer; depois você pode escolher outra função.
+To record a likely role, select TOP, JG, MID, ADC, or SUP beside the champion. If the target role is occupied, the previous occupant returns to the unassigned area so no information is lost. Use **Retornar para sem posição** in a role slot to undo an assignment and select another role.
 
-## Modo manual e ciclo da sessão
+## Manual Mode and Session Lifecycle
 
-Todos os slots e bans continuam clicáveis com ou sem o League Client. Desativar a sincronização preserva o quadro atual. Ao reativar, o estado é reconciliado com a seleção atual.
+All pick and ban slots remain editable with or without the League Client. Disabling synchronization preserves the current board. Re-enabling it reconciles the board with the active champion-select session, when one exists.
 
-Uma nova sessão comprovada limpa apenas picks e bans da sessão anterior, uma única vez. Pools, perfil, preferências e configurações são preservados. Sair do champ select, sofrer dodge ou perder a conexão não apaga o último snapshot visível.
+A confirmed new session clears only the previous session's picks and bans, exactly once. Champion pools, profile, preferences, and settings are preserved. Leaving champion select, dodging, or losing the connection does not erase the latest visible snapshot.
 
-Durante uma sessão sincronizada, **Nova partida**, **Limpar** e **Inverter times** continuam disponíveis. O aplicativo avisa que um snapshot seguinte pode restaurar os dados detectados. Nenhuma dessas ações escreve no League Client.
+During a synchronized session, **Nova partida**, **Limpar**, and **Inverter times** remain available. PickBoard warns that the next confirmed snapshot may restore detected data. None of these actions writes to the League Client.
 
-## Instalação e uso normal
+## Installation
 
-Para usar o aplicativo pronto, você não precisa instalar Node.js, pnpm ou Rust e não precisa baixar o repositório.
+Using the packaged application does not require Node.js, pnpm, Rust, or a copy of this repository.
 
-- `PickBoard_0.2.0_x64-setup.exe` é o instalador normal. Ele instala somente para o usuário atual e usa o fluxo padrão do NSIS para escolher/confirmar o destino.
-- `PickBoard_0.2.0_x64-portable.zip` contém somente `PickBoard.exe`; extraia em uma pasta e execute sem instalar.
-- O repositório é apenas o código-fonte para desenvolvimento. Ele não se mistura com a instalação normal.
+- `PickBoard_0.2.0_x64-setup.exe` is the standard installer. It installs for the current Windows user through the regular NSIS flow.
+- `PickBoard_0.2.0_x64-portable.zip` contains only `PickBoard.exe`. Extract it to a folder and run it without installation.
+- The Git repository contains source code for development and remains separate from a normal application installation.
 
-O Microsoft Edge WebView2 Runtime deve existir no Windows. Esta versão não possui assinatura digital, então o SmartScreen pode exibir um aviso.
+Microsoft Edge WebView2 Runtime must be available on Windows. Version 0.2.0 is not digitally signed, so Windows SmartScreen may display a warning.
 
-## Requisitos de desenvolvimento
+## Development Requirements
 
-- Windows 10 ou Windows 11 x64
-- Node.js 22 ou posterior
+- Windows 10 or Windows 11 x64
+- Node.js 22 or later
 - pnpm 11
-- Rust estável com target MSVC
+- Stable Rust with the MSVC target
 - Microsoft Edge WebView2 Runtime
-- Build Tools do Visual Studio com ferramentas C++ para desktop
+- Visual Studio Build Tools with Desktop development with C++
 
-Instale as dependências:
+Install dependencies:
 
 ```powershell
 pnpm install
 ```
 
-Frontend no navegador — sem integração LCU:
+Run the frontend in a browser without LCU integration:
 
 ```powershell
 pnpm dev
 ```
 
-Aplicativo desktop Tauri:
+Run the Tauri desktop application:
 
 ```powershell
 pnpm tauri:dev
 ```
 
-## Testes e verificações
+## Tests and Validation
 
-Os testes Rust usam JSON sanitizado e contratos locais; nenhum token real é necessário.
+Rust tests use sanitized local fixtures and require no real token.
 
 ```powershell
 pnpm test
@@ -114,134 +114,132 @@ cargo test
 cargo check
 ```
 
-Para gerar cobertura TypeScript:
+Generate TypeScript coverage:
 
 ```powershell
 pnpm test:coverage
 ```
 
-## Roteiro manual com o League Client
+## Manual League Client Test Plan
 
-Use uma partida personalizada ou outro ambiente seguro; não use fila ranqueada para desenvolvimento.
+Use a custom match or another safe environment. Do not use a ranked queue for development testing.
 
-1. Abra o PickBoard sem o League e confirme **Procurando League Client**.
-2. Abra o League Client e confirme a detecção automática.
-3. Entre em uma partida personalizada e inicie o champ select.
-4. Passe o mouse sobre um campeão sem confirmar e confirme que ele não entra definitivamente no quadro.
-5. Confirme picks aliados e verifique as posições fornecidas pelo cliente.
-6. Confirme picks inimigos e verifique que aparecem sem posição.
-7. Atribua uma posição inimiga, troque-a e retorne o campeão para **Sem posição**.
-8. Confirme bans dos dois times.
-9. Faça uma troca de campeão e confirme a convergência do snapshot.
-10. Copie o prompt com inimigos posicionados e não posicionados.
-11. Desative a sincronização e confirme que o quadro deixa de receber mudanças.
-12. Reative e confirme a reconciliação com a sessão atual.
-13. Feche e reabra o cliente, verificando reconexão e modo manual durante a interrupção.
-14. Teste um dodge e confirme que o último snapshot permanece visível.
-15. Inicie outro champ select e confirme que picks e bans anteriores são limpos uma única vez.
+1. Open PickBoard without League and confirm **Procurando League Client**.
+2. Open the League Client and confirm automatic detection.
+3. Start champion select in a custom match.
+4. Hover a champion without confirming it and verify that it does not become a committed board entry.
+5. Confirm ally picks and verify positions provided by the client.
+6. Confirm enemy picks and verify that they appear without roles.
+7. Assign an enemy role, change it, and return the champion to the unassigned area.
+8. Confirm bans for both teams.
+9. Complete a champion swap and verify snapshot convergence.
+10. Copy a prompt containing both assigned and unassigned enemies.
+11. Disable synchronization and verify that incoming changes stop.
+12. Re-enable synchronization and verify reconciliation with the current session.
+13. Close and reopen the client, verifying reconnection and manual availability during the interruption.
+14. Test a dodge and verify that the latest snapshot remains visible.
+15. Start another champion select and verify that previous picks and bans are cleared exactly once.
 
-## Limitações da sincronização
+## Synchronization Limitations
 
-- A League Client API não possui garantia oficial de estabilidade e pode mudar sem aviso.
-- Atualizações do cliente podem interromper temporariamente a integração.
-- Posições inimigas nunca são inferidas automaticamente.
-- Alguns modos podem não fornecer posições aliadas confiáveis; nesses casos o acompanhamento é parcial.
-- A descoberta e a integração com o cliente são destinadas ao aplicativo Windows instalado.
-- O modo manual sempre permanece disponível.
-- A integração não executa ações dentro do cliente.
+- The League Client API has no official stability guarantee and may change without notice.
+- Client updates may temporarily interrupt compatibility.
+- Enemy roles are never inferred automatically.
+- Some game modes may not provide reliable ally positions; synchronization is partial in those cases.
+- Client discovery and integration target the installed Windows application.
+- Manual mode always remains available.
+- The integration never performs actions inside the client.
 
-## Solução de problemas
+## Troubleshooting
 
-- **Continua procurando:** abra o cliente completo do League e aguarde alguns segundos; o launcher sozinho não basta.
-- **Integração indisponível:** atualize/reabra o League e o PickBoard. Continue manualmente se uma atualização da LCU tiver alterado o contrato.
-- **Campeão desconhecido:** em Configurações, use **Verificar atualizações de campeões**.
-- **O draft voltou após limpar ou inverter:** a sessão sincronizada continua ativa e o snapshot confirmado foi aplicado novamente. Desative a sincronização para editar sem reconciliação.
-- **Posição aliada ausente:** o modo atual não informou uma posição reconhecida; preencha manualmente.
+- **Still searching:** open the full League Client and wait a few seconds; the launcher alone is not sufficient.
+- **Integration unavailable:** restart League and PickBoard. Continue manually if a client update changed the LCU contract.
+- **Unknown champion:** use **Verificar atualizações de campeões** under **Configurações**.
+- **Draft returned after clearing or inversion:** the synchronized session remains active and the next confirmed snapshot was applied. Disable synchronization for unreconciled manual editing.
+- **Missing ally position:** the current mode did not provide a recognized role; fill it manually.
 
-## Dados dos campeões
+## Champion Data
 
-O snapshot embutido fica em `src/data/champions.json`, `public/champions/` e `src/data/champion-aliases.json`.
+The bundled snapshot is stored in `src/data/champions.json`, `public/champions/`, and `src/data/champion-aliases.json`.
 
-Para consultar o Data Dragon e baixar apenas os ícones ausentes:
+To query Data Dragon and download only missing icons:
 
 ```powershell
 pnpm sync:champions
 ```
 
-Se a rede falhar, o snapshot existente não é removido.
+If the network request fails, the existing snapshot is preserved.
 
-## Build e distribuição Windows
+## Windows Build and Distribution
 
-Gere testes, lint, typecheck, frontend, binário release, instalador NSIS e portátil:
+Run tests, lint, type checking, frontend build, release binary build, NSIS packaging, and portable packaging:
 
 ```powershell
 pnpm release:windows
 ```
 
-Ou separadamente:
+Or run the packaging stages separately:
 
 ```powershell
 pnpm build:tauri
 pnpm package:portable
 ```
 
-Os arquivos ficam em:
+Generated files:
 
 ```text
 dist/releases/PickBoard_0.2.0_x64-setup.exe
 dist/releases/PickBoard_0.2.0_x64-portable.zip
 ```
 
-O ZIP portátil deve conter apenas `PickBoard.exe`.
+The portable ZIP must contain only `PickBoard.exe`.
 
-### Publicar futuramente como GitHub Release
+### Publishing a GitHub Release
 
-Esta tarefa não publica nem cria tag. Quando a versão for aprovada para distribuição pública:
+Before publishing a version with LCU integration:
 
-1. registre ou atualize o projeto no Riot Developer Portal e peça a auditoria aplicável;
-2. gere os dois artefatos e confira seus hashes SHA-256;
-3. no GitHub, abra **Releases → Draft a new release**;
-4. escolha/crie a tag `v0.2.0` apontando para o commit aprovado;
-5. use o título `PickBoard 0.2.0` e descreva sincronização local, modo manual, limitações e ausência de assinatura;
-6. anexe o instalador e o ZIP portátil — não anexe o repositório como se fosse o aplicativo;
-7. publique a release. Os anexos passam a aparecer como downloads; `Source code (zip/tar.gz)` é gerado pelo GitHub e contém somente o repositório.
+1. register or update the project in the Riot Developer Portal and request the applicable review;
+2. generate both Windows artifacts and verify their SHA-256 checksums;
+3. create a GitHub release for the approved version tag;
+4. document synchronization, manual fallback, known limitations, and signing status;
+5. attach the installer and portable ZIP. GitHub's automatically generated source archives contain the repository, not the packaged application.
 
-## Estrutura
+## Project Structure
 
 ```text
 src/
-  assets/        recursos visuais empacotados pelo frontend
-  components/    draft, layout, pools, configurações e controles
-  domain/        tipos, validação, migração, reconciliação e prompts
-  hooks/         ciclo de vida da sincronização na interface
-  services/      persistência, clipboard, catálogo e ponte Tauri
-  store/         estado Zustand e ações
+  assets/        frontend-packaged visual assets
+  components/    draft, layout, pools, settings, and reusable controls
+  domain/        types, validation, migration, reconciliation, and prompts
+  hooks/         frontend synchronization lifecycle
+  services/      persistence, clipboard, champion catalog, and Tauri bridge
+  store/         Zustand state and actions
 src-tauri/
-  src/lcu/       descoberta, conexão, modelos, normalização e watcher
-  capabilities/ permissões mínimas
-  icons/         ícones do executável e instalador
-scripts/         sincronização do catálogo e empacotamento portátil
+  src/lcu/       discovery, connection, models, normalization, and watcher
+  capabilities/ minimal permissions
+  icons/         executable and installer icons
+scripts/         champion catalog synchronization and portable packaging
 ```
 
-## Persistência e privacidade
+## Persistence and Privacy
 
-O estado fica em `pickboard-state.json` na pasta local de dados do aplicativo. São persistidos draft, bans, anotações de posição, pools, perfil, preferências e configurações.
+State is stored in `pickboard-state.json` under the application local-data directory. The current draft, bans, role annotations, champion pools, profile, preferences, and settings are persisted.
 
-Nunca são persistidos token, senha, porta, PID, lockfile, URL autenticada, estado interno de reconexão ou identidade de jogadores. Logs de desenvolvimento são locais, mínimos e sanitizados. Não existe telemetria.
+LCU tokens, passwords, ports, PIDs, lockfile contents, authenticated URLs, internal reconnection state, and player identities are never persisted. Development logs are local, minimal, and sanitized. PickBoard has no telemetry.
 
-## Aviso sobre a Riot Games
+## Riot Games Notice
 
 PickBoard isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
 
-Os dados estáticos e ícones vêm do Riot Data Dragon. A integração usa a League Client API local, que a Riot declara não ser oficialmente suportada. Antes de publicar publicamente esta funcionalidade, o responsável deve registrar ou atualizar o PickBoard no Riot Developer Portal, informar o endpoint local usado, descrever o acesso somente leitura e solicitar a auditoria exigida pela política vigente.
+Static data and icons come from Riot Data Dragon. The integration uses the local League Client API, which Riot describes as unsupported and subject to change. Before public distribution, the product owner must register or update PickBoard in the Riot Developer Portal, disclose the local endpoint, describe the read-only behavior, and request any review required by the current policy.
 
-Referências primárias:
+Primary references:
 
 - [League Client API](https://developer.riotgames.com/docs/lol#league-client-api)
 - [General Policies](https://developer.riotgames.com/policies/general)
 
-O PickBoard não usa uma Riot API key e não sugere associação, aprovação ou endosso pela Riot Games.
+PickBoard does not use a Riot API key and does not claim association with, approval by, or endorsement from Riot Games.
 
-## Licença
+## License
 
-MIT. Consulte `LICENSE`.
+MIT. See `LICENSE`.

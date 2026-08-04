@@ -41,8 +41,8 @@
     "createUpdaterArtifacts": false,
     "publisher": "Ítalo Soares Campos",
     "category": "Utility",
-    "shortDescription": "Montagem rápida e local de drafts",
-    "longDescription": "Monte picks e bans, organize pools de campeões e copie prompts de draft formatados.",
+    "shortDescription": "Fast, local League of Legends draft tracking",
+    "longDescription": "Track picks and bans, organize champion pools, and copy structured draft prompts.",
     "copyright": "Copyright © 2026 Ítalo Soares Campos",
     "icon": [
       "icons/32x32.png",
