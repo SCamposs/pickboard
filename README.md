@@ -181,7 +181,7 @@ Run tests, lint, type checking, frontend build, release binary build, NSIS packa
 pnpm release:windows
 ```
 
-Updater artifacts must be signed. Local builds use the ignored `.tauri/pickboard.key` file when no signing environment variable is configured. Keep a secure backup of this private key: losing it prevents existing installations from accepting future updates. CI should provide `TAURI_SIGNING_PRIVATE_KEY` or `TAURI_SIGNING_PRIVATE_KEY_PATH` through a secret.
+Updater artifacts must be signed. Local builds use the ignored `.tauri/pickboard.key` and `.tauri/pickboard.key.password` files when no signing environment variable is configured. Keep a secure backup of both: losing either prevents existing installations from accepting future updates. CI should provide `TAURI_SIGNING_PRIVATE_KEY` and `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` through secrets.
 
 Or run the packaging stages separately:
 
