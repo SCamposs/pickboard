@@ -10,3 +10,4 @@ dist/releases/
 .env
 .env.*
 !.env.example
+.tauri/

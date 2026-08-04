@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { CircleHelp, Columns3, Settings2, ShieldEllipsis } from "lucide-react";
+import { APP_VERSION } from "../../services/appUpdate";
 
 const logoUrl = "/pickboard-mark.svg";
 
@@ -50,7 +51,7 @@ export function AppShell({ page, onNavigate, children }: AppShellProps) {
             );
           })}
         </nav>
-        <div className="version-mark">v0.2.1</div>
+        <div className="version-mark">v{APP_VERSION}</div>
       </aside>
       <main className="app-content">{children}</main>
     </div>

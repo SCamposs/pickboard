@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Database, RefreshCw, RotateCcw, ShieldCheck } from "lucide-react";
+import { Database, PackageCheck, RefreshCw, RotateCcw, ShieldCheck } from "lucide-react";
+import { APP_VERSION } from "../../services/appUpdate";
 import { checkLatestChampionVersion } from "../../services/championCatalog";
 import { confirmAction } from "../../services/confirm";
 import { useAppStore } from "../../store/appStore";
@@ -7,6 +8,7 @@ import { Button } from "../ui/Button";
 import { Switch } from "../ui/Switch";
 import { useToast } from "../ui/ToastProvider";
 import { InitialSetup } from "./InitialSetup";
+import { useAppUpdate } from "../updates/AppUpdateContext";
 
 export function SettingsPage() {
   const [availableVersion, setAvailableVersion] = useState<string | null>(null);
@@ -18,8 +20,9 @@ export function SettingsPage() {
   const resetDefaults = useAppStore((state) => state.resetDefaults);
   const installChampionUpdate = useAppStore((state) => state.installChampionUpdate);
   const { notify } = useToast();
+  const { checking: checkingAppUpdate, checkForAppUpdate } = useAppUpdate();
 
-  const checkForUpdates = async (): Promise<void> => {
+  const checkForChampionUpdates = async (): Promise<void> => {
     setChecking(true);
     try {
       const latest = await checkLatestChampionVersion();
@@ -103,6 +106,30 @@ export function SettingsPage() {
           </div>
         </section>
 
+        <section className="settings-section" aria-labelledby="app-update-title">
+          <header className="settings-section-heading">
+            <div>
+              <h2 id="app-update-title">Atualizações do PickBoard</h2>
+              <p>O aplicativo verifica novas versões silenciosamente ao iniciar.</p>
+            </div>
+            <PackageCheck size={20} aria-hidden="true" />
+          </header>
+          <div className="app-version-row">
+            <div>
+              <strong>Versão instalada</strong>
+              <span>{APP_VERSION}</span>
+            </div>
+            <Button
+              variant="secondary"
+              icon={<RefreshCw className={checkingAppUpdate ? "spin" : ""} size={16} />}
+              disabled={checkingAppUpdate}
+              onClick={() => void checkForAppUpdate()}
+            >
+              {checkingAppUpdate ? "Verificando..." : "Verificar nova versão"}
+            </Button>
+          </div>
+        </section>
+
         <section className="settings-section" aria-labelledby="data-title">
           <header className="settings-section-heading">
             <div>
@@ -127,7 +154,7 @@ export function SettingsPage() {
               variant="secondary"
               icon={<RefreshCw className={checking ? "spin" : ""} size={16} />}
               disabled={checking || installing}
-              onClick={() => void checkForUpdates()}
+              onClick={() => void checkForChampionUpdates()}
             >
               {installing
                 ? "Baixando atualização..."

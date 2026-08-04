@@ -1,5 +1,6 @@
 import { Cable, HardDrive, ShieldCheck } from "lucide-react";
 import { RIOT_LEGAL_NOTICE } from "../../domain/constants";
+import { APP_VERSION } from "../../services/appUpdate";
 
 export function AboutPage() {
   return (
@@ -17,7 +18,7 @@ export function AboutPage() {
             PB
           </div>
           <div>
-            <h2>PickBoard 0.2.1</h2>
+            <h2>PickBoard {APP_VERSION}</h2>
             <p>
               Seus picks, bans, pools e prompts permanecem neste dispositivo. O PickBoard não
               exige conta e não envia dados de uso.

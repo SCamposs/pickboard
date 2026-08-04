@@ -19,6 +19,7 @@ The application is built with Tauri 2, React, TypeScript, Vite, Tailwind CSS, an
 - Local, versioned persistence with migration and safe corruption recovery.
 - Bundled pt_BR snapshot with 173 champions and icons for offline use.
 - Explicit Data Dragon updates with the bundled snapshot retained as an offline fallback.
+- Silent application update checks on startup with an explicit download, install, and restart flow.
 
 ## League Client Synchronization
 
@@ -72,6 +73,8 @@ Using the packaged application does not require Node.js, pnpm, Rust, or a copy o
 - The Git repository contains source code for development and remains separate from a normal application installation.
 
 Microsoft Edge WebView2 Runtime must be available on Windows. Version 0.2.1 is not digitally signed, so Windows SmartScreen may display a warning.
+
+PickBoard checks the latest GitHub release silently when it starts. If a newer signed update is available, the application asks before downloading or installing it. Users can also select **Verificar nova versão** under **Configurações**. The portable package can detect updates, but installing one switches to the standard per-user installation.
 
 ## Development Requirements
 
@@ -178,6 +181,8 @@ Run tests, lint, type checking, frontend build, release binary build, NSIS packa
 pnpm release:windows
 ```
 
+Updater artifacts must be signed. Local builds use the ignored `.tauri/pickboard.key` file when no signing environment variable is configured. Keep a secure backup of this private key: losing it prevents existing installations from accepting future updates. CI should provide `TAURI_SIGNING_PRIVATE_KEY` or `TAURI_SIGNING_PRIVATE_KEY_PATH` through a secret.
+
 Or run the packaging stages separately:
 
 ```powershell
@@ -189,7 +194,9 @@ Generated files:
 
 ```text
 dist/releases/PickBoard_0.2.1_x64-setup.exe
+dist/releases/PickBoard_0.2.1_x64-setup.exe.sig
 dist/releases/PickBoard_0.2.1_x64-portable.zip
+dist/releases/latest.json
 ```
 
 The portable ZIP must contain only `PickBoard.exe`.
@@ -202,7 +209,7 @@ Before publishing a version with LCU integration:
 2. generate both Windows artifacts and verify their SHA-256 checksums;
 3. create a GitHub release for the approved version tag;
 4. document synchronization, manual fallback, known limitations, and signing status;
-5. attach the installer and portable ZIP. GitHub's automatically generated source archives contain the repository, not the packaged application.
+5. attach the installer, its updater signature, the portable ZIP, and `latest.json`. GitHub's automatically generated source archives contain the repository, not the packaged application.
 
 ## Project Structure
 
