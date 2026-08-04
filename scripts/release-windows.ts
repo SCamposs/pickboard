@@ -6,10 +6,16 @@ import process from "node:process";
 const root = process.cwd();
 const localSigningKey = path.join(root, ".tauri", "pickboard.key");
 
-function run(command: string, args: string[], env = process.env): void {
+function run(script: "build:tauri" | "package:portable", env = process.env): void {
+  const command = process.platform === "win32" ? (process.env.ComSpec ?? "cmd.exe") : "pnpm";
+  const args =
+    process.platform === "win32"
+      ? ["/d", "/s", "/c", `pnpm.cmd ${script}`]
+      : [script];
   const result = spawnSync(command, args, { cwd: root, env, stdio: "inherit" });
   if (result.status !== 0) {
-    throw new Error(`${command} ${args.join(" ")} failed with exit code ${result.status ?? "unknown"}.`);
+    const detail = result.error?.message ?? `exit code ${result.status ?? "unknown"}`;
+    throw new Error(`pnpm ${script} failed: ${detail}.`);
   }
 }
 
@@ -30,8 +36,8 @@ async function main(): Promise<void> {
     ...(!hasSigningKey ? { TAURI_SIGNING_PRIVATE_KEY_PATH: localSigningKey } : {}),
   };
 
-  run("pnpm.cmd", ["build:tauri"], env);
-  run("pnpm.cmd", ["package:portable"], env);
+  run("build:tauri", env);
+  run("package:portable", env);
 }
 
 main().catch((error: unknown) => {
