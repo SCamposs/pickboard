@@ -79,7 +79,7 @@ export function SettingsPage() {
             <Switch
               checked={settings.syncWithLeagueClient}
               label="Sincronizar com o League Client"
-              description="Preenche picks e bans confirmados localmente. Não usa API key, não realiza ações no cliente e mantém o modo manual disponível."
+              description="Preenche picks e bans confirmados automaticamente enquanto o League Client estiver aberto. O modo manual continua disponível."
               onChange={(value) => setSetting("syncWithLeagueClient", value)}
             />
             <Switch
@@ -107,7 +107,7 @@ export function SettingsPage() {
           <header className="settings-section-heading">
             <div>
               <h2 id="data-title">Dados dos campeões</h2>
-              <p>O snapshot embutido continua disponível como fallback offline.</p>
+              <p>Verifique quando quiser se há campeões e ícones mais recentes.</p>
             </div>
             <ShieldCheck size={20} aria-hidden="true" />
           </header>

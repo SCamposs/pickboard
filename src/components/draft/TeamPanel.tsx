@@ -35,7 +35,7 @@ export function TeamPanel({
     <section className="team-panel" data-side={side} aria-labelledby={`${side}-team-title`}>
       <header className="team-heading">
         <span className="team-emblem" aria-hidden="true">
-          <Swords size={17} />
+          <Swords size={19} strokeWidth={1.9} />
         </span>
         <div>
           <h2 id={`${side}-team-title`}>{ally ? "Meu time" : "Time inimigo"}</h2>

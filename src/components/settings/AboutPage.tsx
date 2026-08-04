@@ -1,4 +1,4 @@
-import { Cable, ExternalLink, HardDrive, ShieldCheck } from "lucide-react";
+import { Cable, HardDrive, ShieldCheck } from "lucide-react";
 import { RIOT_LEGAL_NOTICE } from "../../domain/constants";
 
 export function AboutPage() {
@@ -19,8 +19,8 @@ export function AboutPage() {
           <div>
             <h2>PickBoard 0.2.0</h2>
             <p>
-              Picks, bans, pools e prompts permanecem neste dispositivo. O aplicativo não possui
-              backend, conta, analytics ou telemetria.
+              Seus picks, bans, pools e prompts permanecem neste dispositivo. O PickBoard não
+              exige conta e não envia dados de uso.
             </p>
           </div>
         </section>
@@ -28,12 +28,12 @@ export function AboutPage() {
         <section className="about-feature">
           <Cable size={20} aria-hidden="true" />
           <div>
-            <h3>Integração local e somente leitura</h3>
+            <h3>Sincronização com o League</h3>
             <p>
-              Quando ativada, a sincronização usa apenas as credenciais temporárias do League
-              Client neste computador. Nenhuma API key é necessária ou armazenada, e o PickBoard
-              não confirma picks, bans ou outras ações no jogo. A League Client API não possui
-              garantia oficial de estabilidade e pode exigir ajustes após atualizações.
+              Acompanha picks e bans confirmados enquanto o League Client estiver aberto. Você
+              pode desativar a sincronização quando quiser e continuar preenchendo tudo
+              manualmente. Atualizações do cliente podem interromper esse acompanhamento
+              temporariamente.
             </p>
           </div>
         </section>
@@ -44,8 +44,7 @@ export function AboutPage() {
             <h3>Preparado para uso offline</h3>
             <p>
               O catálogo e os ícones dos campeões são distribuídos com o aplicativo. A internet só
-              é usada quando você solicita uma verificação de atualização; a sincronização conversa
-              apenas com o cliente local.
+              é usada quando você solicita uma verificação de atualização.
             </p>
           </div>
         </section>
@@ -56,28 +55,6 @@ export function AboutPage() {
             <h2 id="legal-title">Produto de terceiros</h2>
           </div>
           <p lang="en">{RIOT_LEGAL_NOTICE}</p>
-          <div className="legal-source">
-            <ExternalLink size={14} aria-hidden="true" />
-            Formulação oficial consultada na Política Geral do Riot Developer Portal, atualizada em
-            11 de março de 2025.
-          </div>
-        </section>
-
-        <section className="about-meta">
-          <dl>
-            <div>
-              <dt>Licença</dt>
-              <dd>MIT</dd>
-            </div>
-            <div>
-              <dt>Dados estáticos</dt>
-              <dd>Riot Data Dragon</dd>
-            </div>
-            <div>
-              <dt>Plataforma principal</dt>
-              <dd>Windows 10 e 11, x64</dd>
-            </div>
-          </dl>
         </section>
       </div>
     </div>

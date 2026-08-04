@@ -425,9 +425,11 @@ kbd {
 
 .team-emblem {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
   place-items: center;
+  margin: 0;
   border-radius: 9px;
   background: var(--color-accent-soft);
   color: oklch(0.78 0.09 248);
@@ -444,7 +446,7 @@ kbd {
   font-weight: 680;
 }
 
-.team-heading span {
+.team-heading > div > span {
   display: block;
   margin-top: 2px;
   color: var(--color-muted);
@@ -1503,8 +1505,7 @@ kbd {
 
 .about-intro,
 .about-feature,
-.legal-notice,
-.about-meta {
+.legal-notice {
   border: 1px solid var(--color-border);
   border-radius: 11px;
   background: var(--color-surface);
@@ -1570,44 +1571,6 @@ kbd {
 
 .legal-heading svg {
   color: var(--color-primary);
-}
-
-.legal-source {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
-  color: var(--color-subtle);
-  font-size: 10px;
-}
-
-.about-meta {
-  padding: 4px 18px;
-}
-
-.about-meta dl {
-  margin: 0;
-}
-
-.about-meta dl > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 11px 0;
-  border-top: 1px solid var(--color-border);
-}
-
-.about-meta dl > div:first-child {
-  border-top: 0;
-}
-
-.about-meta dt {
-  color: var(--color-muted);
-}
-
-.about-meta dd {
-  margin: 0;
-  font-weight: 590;
 }
 
 .loading-mark {
