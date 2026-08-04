@@ -50,7 +50,7 @@ export function AppShell({ page, onNavigate, children }: AppShellProps) {
             );
           })}
         </nav>
-        <div className="version-mark">v0.2.0</div>
+        <div className="version-mark">v0.2.1</div>
       </aside>
       <main className="app-content">{children}</main>
     </div>

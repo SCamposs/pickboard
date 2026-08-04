@@ -17,7 +17,7 @@ export function AboutPage() {
             PB
           </div>
           <div>
-            <h2>PickBoard 0.2.0</h2>
+            <h2>PickBoard 0.2.1</h2>
             <p>
               Seus picks, bans, pools e prompts permanecem neste dispositivo. O PickBoard não
               exige conta e não envia dados de uso.
