@@ -77,6 +77,12 @@ export function SettingsPage() {
           </header>
           <div className="switch-list">
             <Switch
+              checked={settings.syncWithLeagueClient}
+              label="Sincronizar com o League Client"
+              description="Lê picks e bans localmente. Não usa API key e nunca realiza ações no cliente."
+              onChange={(value) => setSetting("syncWithLeagueClient", value)}
+            />
+            <Switch
               checked={settings.alwaysOnTop}
               label="Sempre no topo"
               description="Mantém o PickBoard visível acima do cliente do jogo."
@@ -151,4 +157,3 @@ export function SettingsPage() {
     </div>
   );
 }
-

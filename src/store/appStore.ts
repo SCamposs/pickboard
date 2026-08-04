@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import { assignBan, assignPick, swapTeams, validateChampionForTarget } from "../domain/draftValidation";
 import { createDefaultPersistedState, createEmptyDraft } from "../domain/defaults";
+import {
+  applyLcuSnapshot as reconcileLcuSnapshot,
+  assignUnassignedPickToRole,
+  returnRolePickToUnassigned,
+} from "../domain/lcuReconciliation";
 import { placeChampionInPool, removeChampionFromPool, reorderPoolTier } from "../domain/poolOperations";
 import {
   POOL_TIERS,
@@ -8,10 +13,13 @@ import {
   TEAM_SIDES,
   type AppSettings,
   type Champion,
+  type LcuDraftSnapshot,
+  type LcuStatus,
   type PersistedState,
   type PickerTarget,
   type PoolTier,
   type Role,
+  type TeamSide,
   type UserProfile,
   type ValidationResult,
 } from "../domain/types";
@@ -27,6 +35,8 @@ interface AppStore extends PersistedState {
   champions: Champion[];
   hydrated: boolean;
   recoveredState: boolean;
+  lcuStatus: LcuStatus;
+  lcuUnknownChampionIds: number[];
   initialize: () => Promise<void>;
   chooseChampion: (
     target: PickerTarget,
@@ -38,6 +48,10 @@ interface AppStore extends PersistedState {
   clearBans: () => void;
   startNewMatch: () => void;
   invertTeams: () => void;
+  applyLcuSnapshot: (snapshot: LcuDraftSnapshot) => void;
+  setLcuStatus: (status: LcuStatus) => void;
+  assignSyncedPickRole: (side: TeamSide, championId: string, role: Role) => void;
+  returnSyncedPickToUnassigned: (side: TeamSide, role: Role) => void;
   setPrimaryRole: (role: Role) => void;
   toggleAdditionalRole: (role: Role) => void;
   setSetting: <Key extends keyof AppSettings>(key: Key, value: AppSettings[Key]) => void;
@@ -80,6 +94,8 @@ export const useAppStore = create<AppStore>((set, get) => {
     champions: embeddedCatalog.champions,
     hydrated: false,
     recoveredState: false,
+    lcuStatus: { state: "disabled", message: null },
+    lcuUnknownChampionIds: [],
 
     initialize: async () => {
       const [{ state, recovered }, catalog] = await Promise.all([
@@ -116,27 +132,55 @@ export const useAppStore = create<AppStore>((set, get) => {
 
     clearTarget: (target) => {
       const draft = structuredClone(get().draft);
-      if (target.kind === "pick") draft.picks[target.side][target.role] = null;
-      else draft.bans[target.side][target.index] = null;
+      if (target.kind === "pick") {
+        draft.picks[target.side][target.role] = null;
+        draft.pickSources[target.side][target.role] = null;
+      } else {
+        draft.bans[target.side][target.index] = null;
+        draft.banSources[target.side][target.index] = null;
+      }
       update({ draft });
     },
 
     clearPicks: () => {
       const draft = structuredClone(get().draft);
       for (const side of TEAM_SIDES) {
-        for (const role of ROLES) draft.picks[side][role] = null;
+        for (const role of ROLES) {
+          draft.picks[side][role] = null;
+          draft.pickSources[side][role] = null;
+        }
+        draft.unassignedPicks[side] = [];
       }
       update({ draft });
     },
 
     clearBans: () => {
       const draft = structuredClone(get().draft);
-      for (const side of TEAM_SIDES) draft.bans[side] = Array.from({ length: 5 }, () => null);
+      for (const side of TEAM_SIDES) {
+        draft.bans[side] = Array.from({ length: 5 }, () => null);
+        draft.banSources[side] = Array.from({ length: 5 }, () => null);
+      }
       update({ draft });
     },
 
     startNewMatch: () => update({ draft: createEmptyDraft() }),
     invertTeams: () => update({ draft: swapTeams(get().draft) }),
+
+    applyLcuSnapshot: (snapshot) => {
+      if (!get().settings.syncWithLeagueClient) return;
+      update({
+        draft: reconcileLcuSnapshot(get().draft, snapshot),
+        lcuUnknownChampionIds: snapshot.unknownChampionIds,
+      });
+    },
+
+    setLcuStatus: (lcuStatus) => set({ lcuStatus }),
+
+    assignSyncedPickRole: (side, championId, role) =>
+      update({ draft: assignUnassignedPickToRole(get().draft, side, championId, role) }),
+
+    returnSyncedPickToUnassigned: (side, role) =>
+      update({ draft: returnRolePickToUnassigned(get().draft, side, role) }),
 
     setPrimaryRole: (role) =>
       update((state) => ({
@@ -186,7 +230,13 @@ export const useAppStore = create<AppStore>((set, get) => {
 
     resetDefaults: async () => {
       const defaults = createDefaultPersistedState();
-      set({ ...defaults, champions: get().champions, hydrated: true, recoveredState: false });
+      set({
+        ...defaults,
+        champions: get().champions,
+        hydrated: true,
+        recoveredState: false,
+        lcuUnknownChampionIds: [],
+      });
       await applyAlwaysOnTop(false).catch(() => undefined);
       await savePersistedState(defaults);
     },

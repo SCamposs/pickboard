@@ -12,13 +12,14 @@ import {
 } from "lucide-react";
 import { formatDraftPrompt } from "../../domain/promptFormatters";
 import { hasDraftContent } from "../../domain/draftValidation";
-import type { PickerTarget } from "../../domain/types";
+import type { PickerTarget, Role, TeamSide } from "../../domain/types";
 import { copyText } from "../../services/clipboard";
 import { confirmAction } from "../../services/confirm";
 import { useAppStore } from "../../store/appStore";
 import { Button } from "../ui/Button";
 import { useToast } from "../ui/ToastProvider";
 import { ChampionPicker } from "./ChampionPicker";
+import { LcuStatusIndicator } from "./LcuStatusIndicator";
 import { RecommendationRoleControls } from "./RecommendationRoleControls";
 import { TeamPanel } from "./TeamPanel";
 
@@ -43,11 +44,18 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
   const alwaysOnTop = useAppStore((state) => state.settings.alwaysOnTop);
   const compactMode = useAppStore((state) => state.settings.compactMode);
   const setupCompleted = useAppStore((state) => state.profile.setupCompleted);
+  const syncEnabled = useAppStore((state) => state.settings.syncWithLeagueClient);
+  const lcuStatus = useAppStore((state) => state.lcuStatus);
+  const unknownChampionIds = useAppStore((state) => state.lcuUnknownChampionIds);
   const clearTarget = useAppStore((state) => state.clearTarget);
   const clearPicks = useAppStore((state) => state.clearPicks);
   const clearBans = useAppStore((state) => state.clearBans);
   const startNewMatch = useAppStore((state) => state.startNewMatch);
   const invertTeams = useAppStore((state) => state.invertTeams);
+  const assignSyncedPickRole = useAppStore((state) => state.assignSyncedPickRole);
+  const returnSyncedPickToUnassigned = useAppStore(
+    (state) => state.returnSyncedPickToUnassigned,
+  );
   const setSetting = useAppStore((state) => state.setSetting);
   const { notify } = useToast();
 
@@ -68,18 +76,25 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
   const newMatch = useCallback(async () => {
     if (
       hasDraftContent(draft) &&
-      !(await confirmAction("Limpar todos os picks e bans desta partida?", "Nova partida"))
+      !(await confirmAction(
+        syncEnabled
+          ? "Limpar o quadro agora? A seleção atual do League Client poderá preenchê-lo novamente."
+          : "Limpar todos os picks e bans desta partida?",
+        "Nova partida",
+      ))
     ) {
       return;
     }
     startNewMatch();
     notify("Novo quadro preparado.");
-  }, [draft, notify, startNewMatch]);
+  }, [draft, notify, startNewMatch, syncEnabled]);
 
   const swap = async (): Promise<void> => {
     if (
       !(await confirmAction(
-        "Trocar picks e bans entre Meu time e Time inimigo?",
+        syncEnabled
+          ? "Trocar os times manualmente? A próxima leitura do League Client restaurará os lados detectados."
+          : "Trocar picks e bans entre Meu time e Time inimigo?",
         "Inverter times",
       ))
     ) {
@@ -90,9 +105,9 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
   };
 
   const clearAllPicks = async (): Promise<void> => {
-    const hasPicks = Object.values(draft.picks).some((team) =>
-      Object.values(team).some(Boolean),
-    );
+    const hasPicks =
+      Object.values(draft.picks).some((team) => Object.values(team).some(Boolean)) ||
+      Object.values(draft.unassignedPicks).some((team) => team.length > 0);
     if (
       hasPicks &&
       !(await confirmAction("Limpar todos os picks dos dois times?", "Limpar picks"))
@@ -113,6 +128,17 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
     }
     clearBans();
     notify("Todos os bans foram limpos.");
+  };
+
+  const assignRole = (side: TeamSide, championId: string, role: Role): void => {
+    const displaced = draft.picks[side][role];
+    const championName = championsById.get(championId)?.name ?? "Campeão";
+    assignSyncedPickRole(side, championId, role);
+    notify(
+      displaced
+        ? `${championName} foi definido como ${role}; o ocupante anterior voltou para sem posição.`
+        : `${championName} foi definido como ${role}.`,
+    );
   };
 
   useEffect(() => {
@@ -140,6 +166,7 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
           <p>Registre picks e bans em qualquer ordem.</p>
         </div>
         <div className="header-actions">
+          <LcuStatusIndicator enabled={syncEnabled} status={lcuStatus} />
           <button
             type="button"
             className="status-toggle"
@@ -176,6 +203,14 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
         </div>
       )}
 
+      {unknownChampionIds.length > 0 && (
+        <div className="lcu-warning" role="status">
+          {unknownChampionIds.length === 1
+            ? "Um campeão do cliente ainda não existe no catálogo local. Atualize os dados de campeões."
+            : `${unknownChampionIds.length} campeões do cliente ainda não existem no catálogo local. Atualize os dados de campeões.`}
+        </div>
+      )}
+
       <div className="draft-workspace">
         <TeamPanel
           side="ally"
@@ -183,6 +218,8 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
           championsById={championsById}
           onEdit={setPickerTarget}
           onClear={clearTarget}
+          onAssignUnassigned={assignRole}
+          onReturnToUnassigned={returnSyncedPickToUnassigned}
         />
 
         <aside className="draft-center">
@@ -231,6 +268,8 @@ export function DraftPage({ onOpenSettings }: DraftPageProps) {
           championsById={championsById}
           onEdit={setPickerTarget}
           onClear={clearTarget}
+          onAssignUnassigned={assignRole}
+          onReturnToUnassigned={returnSyncedPickToUnassigned}
         />
       </div>
 

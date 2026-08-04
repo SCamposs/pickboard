@@ -1,4 +1,4 @@
-import { ExternalLink, HardDrive, ShieldCheck } from "lucide-react";
+import { Cable, ExternalLink, HardDrive, ShieldCheck } from "lucide-react";
 import { RIOT_LEGAL_NOTICE } from "../../domain/constants";
 
 export function AboutPage() {
@@ -7,7 +7,7 @@ export function AboutPage() {
       <header className="page-heading">
         <div>
           <h1>Sobre o PickBoard</h1>
-          <p>Uma ferramenta local e manual para organizar seu contexto de draft.</p>
+          <p>Uma ferramenta local para organizar e sincronizar seu contexto de draft.</p>
         </div>
       </header>
 
@@ -17,10 +17,22 @@ export function AboutPage() {
             PB
           </div>
           <div>
-            <h2>PickBoard 0.1.0</h2>
+            <h2>PickBoard 0.2.0</h2>
             <p>
               Picks, bans, pools e prompts permanecem neste dispositivo. O aplicativo não possui
               backend, conta, analytics ou telemetria.
+            </p>
+          </div>
+        </section>
+
+        <section className="about-feature">
+          <Cable size={20} aria-hidden="true" />
+          <div>
+            <h3>Integração local e somente leitura</h3>
+            <p>
+              Quando ativada, a sincronização usa apenas as credenciais temporárias do League
+              Client neste computador. Nenhuma API key é necessária ou armazenada, e o PickBoard
+              não confirma picks, bans ou outras ações no jogo.
             </p>
           </div>
         </section>
@@ -30,8 +42,9 @@ export function AboutPage() {
           <div>
             <h3>Preparado para uso offline</h3>
             <p>
-              O catálogo e os ícones dos campeões são distribuídos com o aplicativo. A rede só é
-              usada quando você solicita uma verificação de atualização.
+              O catálogo e os ícones dos campeões são distribuídos com o aplicativo. A internet só
+              é usada quando você solicita uma verificação de atualização; a sincronização conversa
+              apenas com o cliente local.
             </p>
           </div>
         </section>

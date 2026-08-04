@@ -1,7 +1,15 @@
 import { Swords } from "lucide-react";
-import { ROLES, type Champion, type DraftState, type PickerTarget, type TeamSide } from "../../domain/types";
+import {
+  ROLES,
+  type Champion,
+  type DraftState,
+  type PickerTarget,
+  type Role,
+  type TeamSide,
+} from "../../domain/types";
 import { BanPanel } from "./BanPanel";
 import { RoleSlot } from "./RoleSlot";
+import { UnassignedPicks } from "./UnassignedPicks";
 
 interface TeamPanelProps {
   side: TeamSide;
@@ -9,9 +17,19 @@ interface TeamPanelProps {
   championsById: Map<string, Champion>;
   onEdit: (target: PickerTarget) => void;
   onClear: (target: PickerTarget) => void;
+  onAssignUnassigned: (side: TeamSide, championId: string, role: Role) => void;
+  onReturnToUnassigned: (side: TeamSide, role: Role) => void;
 }
 
-export function TeamPanel({ side, draft, championsById, onEdit, onClear }: TeamPanelProps) {
+export function TeamPanel({
+  side,
+  draft,
+  championsById,
+  onEdit,
+  onClear,
+  onAssignUnassigned,
+  onReturnToUnassigned,
+}: TeamPanelProps) {
   const ally = side === "ally";
   return (
     <section className="team-panel" data-side={side} aria-labelledby={`${side}-team-title`}>
@@ -37,9 +55,22 @@ export function TeamPanel({ side, draft, championsById, onEdit, onClear }: TeamP
             }
             onEdit={() => onEdit({ kind: "pick", side, role })}
             onClear={() => onClear({ kind: "pick", side, role })}
+            synced={draft.pickSources[side][role] === "lcu"}
+            onReturnToUnassigned={
+              draft.pickSources[side][role] === "lcu"
+                ? () => onReturnToUnassigned(side, role)
+                : undefined
+            }
           />
         ))}
       </div>
+      <UnassignedPicks
+        side={side}
+        picks={draft.unassignedPicks[side]}
+        occupiedRoles={draft.picks[side]}
+        championsById={championsById}
+        onAssign={(championId, role) => onAssignUnassigned(side, championId, role)}
+      />
       <BanPanel
         side={side}
         bans={draft.bans[side]}

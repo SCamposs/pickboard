@@ -5,9 +5,11 @@ import { PoolPage } from "./components/pools/PoolPage";
 import { SettingsPage } from "./components/settings/SettingsPage";
 import { AboutPage } from "./components/settings/AboutPage";
 import { useToast } from "./components/ui/ToastProvider";
+import { useLcuSync } from "./hooks/useLcuSync";
 import { useAppStore } from "./store/appStore";
 
 export function App() {
+  useLcuSync();
   const [page, setPage] = useState<AppPage>("draft");
   const initialize = useAppStore((state) => state.initialize);
   const hydrated = useAppStore((state) => state.hydrated);
@@ -47,4 +49,3 @@ export function App() {
     </div>
   );
 }
-

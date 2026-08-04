@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { CircleHelp, Columns3, Settings2, ShieldEllipsis } from "lucide-react";
-import logoUrl from "../../../src-tauri/icons/pickboard-mark.svg";
+import logoUrl from "../../assets/pickboard-mark.svg";
 
 export type AppPage = "draft" | "pools" | "settings" | "about";
 
@@ -49,7 +49,7 @@ export function AppShell({ page, onNavigate, children }: AppShellProps) {
             );
           })}
         </nav>
-        <div className="version-mark">v0.1.0</div>
+        <div className="version-mark">v0.2.0</div>
       </aside>
       <main className="app-content">{children}</main>
     </div>
