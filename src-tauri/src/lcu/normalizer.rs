@@ -28,10 +28,9 @@ fn resolve_champion(
     resolved
 }
 
-fn confirmed_ally_cells(session: &ChampSelectSession) -> Option<HashSet<i64>> {
-    let actions = session.actions.as_ref()?;
+fn confirmed_ally_cells(session: &ChampSelectSession) -> HashSet<i64> {
     let mut completed = HashSet::new();
-    for action in actions.iter().flatten() {
+    for action in session.actions.iter().flatten().flatten() {
         if action.kind.eq_ignore_ascii_case("pick")
             && action.completed
             && !action.is_in_progress
@@ -40,19 +39,17 @@ fn confirmed_ally_cells(session: &ChampSelectSession) -> Option<HashSet<i64>> {
             completed.insert(action.actor_cell_id);
         }
     }
-    Some(completed)
+    completed
 }
 
 fn ally_pick(
     member: &TeamMember,
-    confirmed_cells: Option<&HashSet<i64>>,
+    confirmed_cells: &HashSet<i64>,
     catalog: &HashMap<u64, String>,
     unknown: &mut BTreeSet<u64>,
 ) -> Option<ResolvedPick> {
-    if let Some(cells) = confirmed_cells {
-        if !cells.contains(&member.cell_id) {
-            return None;
-        }
+    if !confirmed_cells.contains(&member.cell_id) {
+        return None;
     }
     resolve_champion(member.champion_id, catalog, unknown).map(|champion_id| ResolvedPick {
         champion_id,
@@ -83,7 +80,7 @@ pub fn normalize_session(
     let ally_picks = session
         .my_team
         .iter()
-        .filter_map(|member| ally_pick(member, confirmed_cells.as_ref(), catalog, &mut unknown))
+        .filter_map(|member| ally_pick(member, &confirmed_cells, catalog, &mut unknown))
         .collect();
     let enemy_picks = resolved_ids(
         session.their_team.iter().map(|member| member.champion_id),
@@ -174,6 +171,15 @@ mod tests {
         assert!(result.enemy_picks.is_empty());
         assert!(result.bans.ally.is_empty());
         assert_eq!(result.phase, None);
+    }
+
+    #[test]
+    fn does_not_treat_team_members_as_confirmed_when_actions_are_missing() {
+        let session = parse(
+            r#"{"myTeam":[{"cellId":1,"championId":103,"assignedPosition":"middle"}],"theirTeam":[]}"#,
+        );
+        let result = normalize_session(&session, &catalog(), "session".into(), 1);
+        assert!(result.ally_picks.is_empty());
     }
 
     #[test]

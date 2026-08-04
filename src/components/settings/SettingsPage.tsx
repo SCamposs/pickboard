@@ -79,7 +79,7 @@ export function SettingsPage() {
             <Switch
               checked={settings.syncWithLeagueClient}
               label="Sincronizar com o League Client"
-              description="Lê picks e bans localmente. Não usa API key e nunca realiza ações no cliente."
+              description="Preenche picks e bans confirmados localmente. Não usa API key, não realiza ações no cliente e mantém o modo manual disponível."
               onChange={(value) => setSetting("syncWithLeagueClient", value)}
             />
             <Switch

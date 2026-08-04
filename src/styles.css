@@ -1688,6 +1688,20 @@ kbd {
   padding-block: 8px;
 }
 
+[data-compact="true"] .unassigned-picks > header span {
+  display: none;
+}
+
+[data-compact="true"] .unassigned-pick-list {
+  overflow-x: auto;
+  flex-direction: row;
+  padding-bottom: 3px;
+}
+
+[data-compact="true"] .unassigned-pick {
+  min-width: 230px;
+}
+
 [data-compact="true"] .recommendation-controls {
   padding: 10px;
 }

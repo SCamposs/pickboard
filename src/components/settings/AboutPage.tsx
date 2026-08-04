@@ -32,7 +32,8 @@ export function AboutPage() {
             <p>
               Quando ativada, a sincronização usa apenas as credenciais temporárias do League
               Client neste computador. Nenhuma API key é necessária ou armazenada, e o PickBoard
-              não confirma picks, bans ou outras ações no jogo.
+              não confirma picks, bans ou outras ações no jogo. A League Client API não possui
+              garantia oficial de estabilidade e pode exigir ajustes após atualizações.
             </p>
           </div>
         </section>

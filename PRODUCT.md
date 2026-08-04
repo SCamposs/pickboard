@@ -6,11 +6,11 @@ product
 
 ## Users
 
-Jogadores de League of Legends que montam drafts manualmente durante a seleção de campeões. O uso acontece sob pressão de tempo, normalmente com o PickBoard ao lado do cliente do jogo, e exige registrar picks e bans em qualquer ordem, consultar pools pessoais e copiar prompts prontos para um assistente de IA.
+Jogadores de League of Legends que acompanham drafts durante a seleção de campeões, com sincronização local opcional e correções manuais. O uso acontece sob pressão de tempo, normalmente com o PickBoard ao lado do cliente do jogo, e exige revisar picks e bans, registrar posições inimigas prováveis, consultar pools pessoais e copiar prompts prontos para um assistente de IA.
 
 ## Product Purpose
 
-O PickBoard reduz o tempo e o esforço necessários para transformar um draft parcial ou completo em contexto legível para uma assistência externa. O produto deve funcionar offline, preservar o estado local, evitar entradas inválidas e tornar as operações recorrentes rápidas por mouse e teclado. Sucesso significa conseguir abrir o aplicativo, montar ou retomar um draft e copiar um prompt correto em poucos segundos.
+O PickBoard reduz o tempo e o esforço necessários para transformar um draft parcial ou completo em contexto legível para uma assistência externa. O produto deve funcionar sem o League Client, preservar o estado local, acompanhar somente dados confirmados quando a integração estiver disponível e tornar correções rápidas por mouse e teclado. Sucesso significa abrir o aplicativo, sincronizar ou montar um draft e copiar um prompt correto em poucos segundos.
 
 ## Brand Personality
 
@@ -29,7 +29,8 @@ Preciso, concentrado e confiável. A voz é direta, em português do Brasil, com
 2. Cada ação frequente precisa ser rápida, reversível e acessível por teclado.
 3. Estado e restrições devem ser compreendidos no lugar em que a decisão acontece.
 4. Densidade serve ao contexto de jogo, sem comprometer leitura ou precisão.
-5. O produto continua útil e previsível sem rede.
+5. O produto continua útil e previsível sem rede ou sem o League Client.
+6. A integração local é somente leitura e nunca presume posições inimigas.
 
 ## Accessibility & Inclusion
 

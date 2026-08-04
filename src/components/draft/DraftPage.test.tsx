@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createDefaultPersistedState } from "../../domain/defaults";
 import { applyLcuSnapshot } from "../../domain/lcuReconciliation";
 import { championId, champions } from "../../test/fixtures";
@@ -42,6 +42,7 @@ describe("fluxo principal de seleção", () => {
 
   it("exibe inimigo sincronizado sem posição e permite atribuir e desfazer a função", async () => {
     const user = userEvent.setup();
+    const writeText = vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue();
     const detected = applyLcuSnapshot(createDefaultPersistedState().draft, {
       sessionKey: "session-ui",
       phase: "BAN_PICK",
@@ -70,6 +71,10 @@ describe("fluxo principal de seleção", () => {
     );
 
     expect(useAppStore.getState().draft.picks.enemy.MID).toBe(championId("Aurora"));
+    await user.click(screen.getByRole("button", { name: /Copiar draft/ }));
+    expect(writeText).toHaveBeenCalledWith(
+      expect.stringContaining("MID: Aurora"),
+    );
     await user.click(
       screen.getByRole("button", { name: "Retornar Aurora para sem posição" }),
     );

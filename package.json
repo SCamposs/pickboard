@@ -1,7 +1,7 @@
 {
   "name": "pickboard",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Ferramenta desktop local para montar drafts de League of Legends e copiar prompts formatados.",
   "type": "module",
   "packageManager": "pnpm@11.9.0",

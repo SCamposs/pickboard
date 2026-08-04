@@ -48,6 +48,8 @@ All colors use OKLCH.
 - Buttons: 8px radius, consistent 36px default height, visible focus ring.
 - Inputs: 8px radius, raised surface, 1px neutral border only.
 - Draft slots: horizontal artwork-first rows with role, champion, replace, and clear actions.
+- LCU status: compact text-and-dot indicator; connection state never depends on color alone.
+- Unassigned enemy picks: a short local annotation area, horizontal and scrollable in compact mode.
 - Ban slots: compact square artwork cells with explicit empty and unavailable states.
 - Toasts: fixed lower-right, short status copy, no required dismissal.
 - Confirmation dialogs: native semantic dialog, focused destructive or consequential action.
@@ -59,4 +61,3 @@ All colors use OKLCH.
 - Disabled and unavailable states include text or icon labels, never color alone.
 - All primary workflows are operable by keyboard.
 - Reduced-motion mode removes transforms and makes transitions immediate.
-
