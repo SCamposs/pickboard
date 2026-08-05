@@ -43,7 +43,7 @@ pub struct TeamMember {
     #[serde(default)]
     pub cell_id: i64,
     #[serde(default)]
-    pub champion_id: u64,
+    pub champion_id: i64,
     #[serde(default)]
     pub assigned_position: String,
 }
@@ -52,9 +52,9 @@ pub struct TeamMember {
 #[serde(rename_all = "camelCase")]
 pub struct SessionBans {
     #[serde(default)]
-    pub my_team_bans: Vec<u64>,
+    pub my_team_bans: Vec<i64>,
     #[serde(default)]
-    pub their_team_bans: Vec<u64>,
+    pub their_team_bans: Vec<i64>,
 }
 
 #[derive(Clone, Debug, Deserialize)]
@@ -63,7 +63,7 @@ pub struct ChampSelectAction {
     #[serde(default)]
     pub actor_cell_id: i64,
     #[serde(default)]
-    pub champion_id: u64,
+    pub champion_id: i64,
     #[serde(default)]
     pub completed: bool,
     #[serde(default)]

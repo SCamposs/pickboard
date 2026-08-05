@@ -14,13 +14,11 @@ pub fn map_assigned_position(position: &str) -> Option<String> {
 }
 
 fn resolve_champion(
-    champion_id: u64,
+    champion_id: i64,
     catalog: &HashMap<u64, String>,
     unknown: &mut BTreeSet<u64>,
 ) -> Option<String> {
-    if champion_id == 0 {
-        return None;
-    }
+    let champion_id = u64::try_from(champion_id).ok().filter(|id| *id > 0)?;
     let resolved = catalog.get(&champion_id).cloned();
     if resolved.is_none() {
         unknown.insert(champion_id);
@@ -58,7 +56,7 @@ fn ally_pick(
 }
 
 fn resolved_ids(
-    ids: impl IntoIterator<Item = u64>,
+    ids: impl IntoIterator<Item = i64>,
     catalog: &HashMap<u64, String>,
     unknown: &mut BTreeSet<u64>,
 ) -> Vec<String> {
@@ -171,6 +169,33 @@ mod tests {
         assert!(result.enemy_picks.is_empty());
         assert!(result.bans.ally.is_empty());
         assert_eq!(result.phase, None);
+    }
+
+    #[test]
+    fn tolerates_negative_ranked_placeholders_and_keeps_valid_bans() {
+        let session = parse(
+            r#"{
+              "myTeam":[
+                {"cellId":1,"championId":-1,"assignedPosition":"top"},
+                {"cellId":2,"championId":254,"assignedPosition":"jungle"}
+              ],
+              "theirTeam":[{"cellId":6,"championId":-1,"assignedPosition":""}],
+              "actions":[[
+                {"actorCellId":1,"championId":-1,"completed":false,"isInProgress":true,"type":"pick"},
+                {"actorCellId":2,"championId":254,"completed":true,"isInProgress":false,"type":"pick"},
+                {"actorCellId":1,"championId":-1,"completed":false,"isInProgress":false,"type":"ban"}
+              ]],
+              "bans":{"myTeamBans":[22,-1,0],"theirTeamBans":[103,-1]}
+            }"#,
+        );
+        let result = normalize_session(&session, &catalog(), "ranked-session".into(), 1);
+
+        assert_eq!(result.ally_picks.len(), 1);
+        assert_eq!(result.ally_picks[0].champion_id, "Vi");
+        assert!(result.enemy_picks.is_empty());
+        assert_eq!(result.bans.ally, vec!["Ashe"]);
+        assert_eq!(result.bans.enemy, vec!["Ahri"]);
+        assert!(result.unknown_champion_ids.is_empty());
     }
 
     #[test]
