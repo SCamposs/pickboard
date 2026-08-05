@@ -67,6 +67,37 @@ fn resolved_ids(
         .collect()
 }
 
+fn completed_action_bans(session: &ChampSelectSession) -> (Vec<i64>, Vec<i64>) {
+    let ally_cells = session
+        .my_team
+        .iter()
+        .map(|member| member.cell_id)
+        .collect::<HashSet<_>>();
+    let enemy_cells = session
+        .their_team
+        .iter()
+        .map(|member| member.cell_id)
+        .collect::<HashSet<_>>();
+    let mut ally = Vec::new();
+    let mut enemy = Vec::new();
+
+    for action in session.actions.iter().flatten().flatten() {
+        if !action.kind.eq_ignore_ascii_case("ban")
+            || !action.completed
+            || action.champion_id <= 0
+        {
+            continue;
+        }
+        if ally_cells.contains(&action.actor_cell_id) {
+            ally.push(action.champion_id);
+        } else if enemy_cells.contains(&action.actor_cell_id) {
+            enemy.push(action.champion_id);
+        }
+    }
+
+    (ally, enemy)
+}
+
 pub fn normalize_session(
     session: &ChampSelectSession,
     catalog: &HashMap<u64, String>,
@@ -86,8 +117,17 @@ pub fn normalize_session(
         &mut unknown,
     );
     let bans = session.bans.clone().unwrap_or_default();
-    let ally_bans = resolved_ids(bans.my_team_bans, catalog, &mut unknown);
-    let enemy_bans = resolved_ids(bans.their_team_bans, catalog, &mut unknown);
+    let (action_ally_bans, action_enemy_bans) = completed_action_bans(session);
+    let ally_bans = resolved_ids(
+        bans.my_team_bans.into_iter().chain(action_ally_bans),
+        catalog,
+        &mut unknown,
+    );
+    let enemy_bans = resolved_ids(
+        bans.their_team_bans.into_iter().chain(action_enemy_bans),
+        catalog,
+        &mut unknown,
+    );
 
     ResolvedSnapshot {
         session_key,
@@ -196,6 +236,26 @@ mod tests {
         assert_eq!(result.bans.ally, vec!["Ashe"]);
         assert_eq!(result.bans.enemy, vec!["Ahri"]);
         assert!(result.unknown_champion_ids.is_empty());
+    }
+
+    #[test]
+    fn resolves_confirmed_bans_from_actions_when_final_lists_are_empty() {
+        let session = parse(
+            r#"{
+              "myTeam":[{"cellId":1,"championId":0,"assignedPosition":"top"}],
+              "theirTeam":[{"cellId":6,"championId":0,"assignedPosition":""}],
+              "actions":[
+                [{"actorCellId":1,"championId":22,"completed":true,"isInProgress":false,"type":"ban"}],
+                [{"actorCellId":6,"championId":103,"completed":true,"isInProgress":false,"type":"ban"}],
+                [{"actorCellId":1,"championId":254,"completed":false,"isInProgress":true,"type":"ban"}]
+              ],
+              "bans":{"myTeamBans":[],"theirTeamBans":[]}
+            }"#,
+        );
+        let result = normalize_session(&session, &catalog(), "action-bans".into(), 1);
+
+        assert_eq!(result.bans.ally, vec!["Ashe"]);
+        assert_eq!(result.bans.enemy, vec!["Ahri"]);
     }
 
     #[test]
