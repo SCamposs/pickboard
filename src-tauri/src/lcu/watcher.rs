@@ -116,6 +116,7 @@ async fn monitor_connection(
         }
 
         if let Some(socket) = websocket.as_mut() {
+            let mut websocket_interrupted = false;
             tokio::select! {
                 _ = poll.tick() => {
                     refresh_snapshot(app, connection, tracker, sequence).await?;
@@ -123,28 +124,34 @@ async fn monitor_connection(
                 message = socket.next() => {
                     match message {
                         Some(Ok(Message::Ping(payload))) => {
-                            socket.send(Message::Pong(payload)).await
-                                .map_err(|_| "Os eventos locais foram interrompidos.".to_string())?;
+                            if socket.send(Message::Pong(payload)).await.is_err() {
+                                websocket_interrupted = true;
+                            }
                         }
                         Some(Ok(message)) if is_champ_select_event(&message) => {
                             refresh_snapshot(app, connection, tracker, sequence).await?;
                         }
                         Some(Ok(Message::Close(_))) | None => {
-                            return Err("Os eventos locais foram interrompidos.".to_string());
+                            websocket_interrupted = true;
                         }
                         Some(Err(_)) => {
-                            return Err("Os eventos locais foram interrompidos.".to_string());
+                            websocket_interrupted = true;
                         }
                         _ => {}
                     }
                 }
             }
+            if websocket_interrupted {
+                websocket = None;
+                websocket_retry_ticks = 0;
+            }
         } else {
             poll.tick().await;
             refresh_snapshot(app, connection, tracker, sequence).await?;
-            websocket_retry_ticks += 1;
+            websocket_retry_ticks = websocket_retry_ticks.saturating_add(1);
             if websocket_retry_ticks >= 3 {
-                return Err("Tentando restabelecer os eventos locais.".to_string());
+                websocket = connection.connect_websocket().await.ok();
+                websocket_retry_ticks = 0;
             }
         }
     }
