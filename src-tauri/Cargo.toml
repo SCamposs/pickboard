@@ -1,6 +1,6 @@
 [package]
 name = "pickboard"
-version = "0.2.2"
+version = "0.2.3"
 description = "Local desktop tool for tracking League of Legends drafts"
 authors = ["Ítalo Soares Campos"]
 edition = "2021"

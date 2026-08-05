@@ -1,6 +1,6 @@
 # PickBoard
 
-PickBoard is a local desktop application for tracking League of Legends drafts, organizing personal champion pools, and copying structured prompts for modern AI assistants. Version 0.2.2 can read confirmed picks and bans directly from the League Client without removing any manual workflow.
+PickBoard is a local desktop application for tracking League of Legends drafts, organizing personal champion pools, and copying structured prompts for modern AI assistants. Version 0.2.3 can read confirmed picks and bans directly from the League Client without removing any manual workflow.
 
 The application is built with Tauri 2, React, TypeScript, Vite, Tailwind CSS, and Rust. It has no external backend, account system, telemetry, analytics, or remote draft storage.
 
@@ -68,11 +68,11 @@ During a synchronized session, **Nova partida**, **Limpar**, and **Inverter time
 
 Using the packaged application does not require Node.js, pnpm, Rust, or a copy of this repository.
 
-- `PickBoard_0.2.2_x64-setup.exe` is the standard installer. It installs for the current Windows user through the regular NSIS flow.
-- `PickBoard_0.2.2_x64-portable.zip` contains only `PickBoard.exe`. Extract it to a folder and run it without installation.
+- `PickBoard_0.2.3_x64-setup.exe` is the standard installer. It installs for the current Windows user through the regular NSIS flow.
+- `PickBoard_0.2.3_x64-portable.zip` contains only `PickBoard.exe`. Extract it to a folder and run it without installation.
 - The Git repository contains source code for development and remains separate from a normal application installation.
 
-Microsoft Edge WebView2 Runtime must be available on Windows. Version 0.2.2 is not digitally signed, so Windows SmartScreen may display a warning.
+Microsoft Edge WebView2 Runtime must be available on Windows. Version 0.2.3 is not digitally signed, so Windows SmartScreen may display a warning.
 
 PickBoard checks the latest GitHub release silently when it starts. If a newer signed update is available, the application asks before downloading or installing it. Users can also select **Verificar nova versão** under **Configurações**. The portable package can detect updates, but installing one switches to the standard per-user installation.
 
@@ -193,9 +193,9 @@ pnpm package:portable
 Generated files:
 
 ```text
-dist/releases/PickBoard_0.2.2_x64-setup.exe
-dist/releases/PickBoard_0.2.2_x64-setup.exe.sig
-dist/releases/PickBoard_0.2.2_x64-portable.zip
+dist/releases/PickBoard_0.2.3_x64-setup.exe
+dist/releases/PickBoard_0.2.3_x64-setup.exe.sig
+dist/releases/PickBoard_0.2.3_x64-portable.zip
 dist/releases/latest.json
 ```
 

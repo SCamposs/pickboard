@@ -1,7 +1,7 @@
 {
   "name": "pickboard",
   "private": true,
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Local desktop tool for tracking League of Legends drafts and copying structured prompts.",
   "type": "module",
   "packageManager": "pnpm@11.9.0",
