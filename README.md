@@ -1,8 +1,53 @@
 # PickBoard
 
-PickBoard is a local desktop application for tracking League of Legends drafts, organizing personal champion pools, and copying structured prompts for modern AI assistants. Version 0.2.3 can read confirmed picks and bans directly from the League Client without removing any manual workflow.
+<p align="center">
+  <strong>Plan League of Legends drafts with a local-first desktop companion.</strong>
+</p>
 
-The application is built with Tauri 2, React, TypeScript, Vite, Tailwind CSS, and Rust. It has no external backend, account system, telemetry, analytics, or remote draft storage.
+<p align="center">
+  Champion pools · Picks & bans · Optional League Client sync · AI-ready draft prompts
+</p>
+
+> **Windows desktop app · v0.2.3 · Tauri 2 + React + TypeScript + Rust**  
+> PickBoard works manually without League running. League Client synchronization is optional, local and read-only.
+
+## Why PickBoard?
+
+Champion select moves quickly. PickBoard keeps draft information, personal champion preferences, and reusable context together, so you can focus on matchups and decisions rather than reorganizing notes.
+
+It combines a flexible **manual draft board** with optional detection of confirmed picks and bans from the installed League Client. When you want outside analysis, it generates a structured prompt that you can copy into an AI assistant of your choice. **It does not make picks or bans for you.**
+
+## At a glance
+
+| Capability | Details |
+| --- | --- |
+| **Draft board** | Edit allied and enemy picks in any order; track five bans per team. |
+| **Optional sync** | Read confirmed champion-select state locally with manual fallback. |
+| **Enemy role control** | Detected enemy champions remain unassigned until you specify a likely role. |
+| **Champion pools** | Group champions by role and tier: Main, Good, Situational, Avoid. |
+| **Prompt export** | Copy structured draft context without tying the app to an AI provider. |
+| **Local-first** | Versioned local persistence, offline champion snapshot, no app account or telemetry. |
+| **Desktop workflow** | Compact and always-on-top modes, installer and portable Windows packages. |
+
+## Technology
+
+**Tauri 2**, **Rust**, **React 19**, **TypeScript**, **Vite**, **Tailwind CSS 4**, **Zustand**, and **Vitest**. The Rust backend handles the local League Client connection; frontend state and interaction remain in React.
+
+## Contents
+
+- [Features](#features)
+- [League Client Synchronization](#league-client-synchronization)
+- [Manual Mode and Session Lifecycle](#manual-mode-and-session-lifecycle)
+- [Installation](#installation)
+- [Development Requirements](#development-requirements)
+- [Tests and Validation](#tests-and-validation)
+- [Synchronization Limitations](#synchronization-limitations)
+- [Troubleshooting](#troubleshooting)
+- [Windows Build and Distribution](#windows-build-and-distribution)
+- [Project Structure](#project-structure)
+- [Persistence and Privacy](#persistence-and-privacy)
+- [Riot Games Notice](#riot-games-notice)
+- [License](#license)
 
 ## Features
 
